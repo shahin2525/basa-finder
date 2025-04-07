@@ -26,6 +26,7 @@ export const registerUser = async (userData: FieldValues) => {
 };
 
 export const loginUser = async (userData: FieldValues) => {
+  //const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
@@ -36,6 +37,7 @@ export const loginUser = async (userData: FieldValues) => {
     });
 
     const result = await res.json();
+    // console.log("result1", result);
 
     if (result.success) {
       (await cookies()).set("accessToken", result.data.accessToken);
@@ -43,12 +45,14 @@ export const loginUser = async (userData: FieldValues) => {
 
     return result;
   } catch (error: any) {
+    // console.log("error", error);
     return Error(error);
   }
 };
 
 export const getCurrentUser = async () => {
   const accessToken = (await cookies()).get("accessToken")?.value;
+  // console.log("get accessToken", accessToken);
   let decodedData = null;
 
   if (accessToken) {

@@ -49,8 +49,10 @@ export default function LoginForm() {
   //   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    // console.log(data);
     try {
       const res = await loginUser(data);
+      // console.log("res1", res);
       if (res?.success) {
         toast.success(res?.message);
         if (redirect) {
@@ -60,6 +62,7 @@ export default function LoginForm() {
         }
       } else {
         toast.error(res?.message);
+        // console.log(res);
       }
     } catch (err: any) {
       console.error(err);

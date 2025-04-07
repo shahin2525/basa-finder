@@ -14,17 +14,18 @@ import { Menu } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/authServices";
 import { protectedRoutes } from "@/constants";
-// import { useSession } from "next-auth/react";
+
+type NavLink = {
+  name: string;
+  href: string;
+  onClick?: () => void;
+};
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
-  // const { data: session, status } = useSession();
-
-  //
   const { user, setIsLoading } = useUser();
-
   const router = useRouter();
 
   const handleLogOut = () => {
@@ -34,7 +35,6 @@ export default function Navbar() {
       router.push("/");
     }
   };
-  //
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,18 +44,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navLinks = [
+  // Common links for all users
+  const commonLinks: NavLink[] = [
     { name: "Home", href: "/" },
     { name: "All Listings", href: "/listings" },
     { name: "About Us", href: "/about" },
-    ...(status === "authenticated"
-      ? [
-          { name: "Dashboard", href: "/dashboard" },
-          { name: "My Profile", href: "/profile" },
-        ]
-      : []),
-    ...(status !== "authenticated" ? [{ name: "Login", href: "/login" }] : []),
   ];
+
+  // Links for authenticated users
+  const authLinks: NavLink[] = user?.email
+    ? [
+        { name: "Dashboard", href: `/dashboard/${user.role}` },
+        { name: "My Profile", href: "/profile" },
+        { name: "Logout", href: "#", onClick: handleLogOut },
+      ]
+    : [{ name: "Login", href: "/login" }];
+
+  const navLinks = [...commonLinks, ...authLinks];
 
   return (
     <header
@@ -66,17 +71,21 @@ export default function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo on the left */}
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold">YourLogo</span>
         </Link>
 
-        {/* Desktop Navigation - Right side */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              onClick={(e) => {
+                if (link.onClick) {
+                  e.preventDefault();
+                  link.onClick();
+                }
+              }}
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 pathname === link.href ? "text-primary" : "text-foreground/60"
               }`}
@@ -86,7 +95,6 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile menu button */}
         <div className="md:hidden">
           <DropdownMenu onOpenChange={setIsMenuOpen}>
             <DropdownMenuTrigger asChild>
@@ -103,6 +111,12 @@ export default function Navbar() {
                 <DropdownMenuItem key={link.href} asChild>
                   <Link
                     href={link.href}
+                    onClick={(e) => {
+                      if (link.onClick) {
+                        e.preventDefault();
+                        link.onClick();
+                      }
+                    }}
                     className={`w-full ${
                       pathname === link.href ? "bg-accent" : ""
                     }`}
