@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-amber-200 border-t">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="max-w-screen-xl mx-auto px-5 w-full">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
           {/* Contact Information */}

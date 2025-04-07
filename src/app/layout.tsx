@@ -34,8 +34,19 @@ export default function RootLayout({
         >
           <Toaster richColors position="top-center" />
           {/* Width container */}
-          <div className="max-w-screen-xl mx-auto px-5">
+          {/* <div className="max-w-screen-xl mx-auto px-5">
             <Navbar />
+            {children}
+            <Footer />
+          </div> */}
+          <div className="fixed top-0 left-0 right-0 z-50 bg-amber-200">
+            <div className="max-w-screen-xl mx-auto px-5 w-full">
+              <Navbar />
+            </div>
+          </div>
+
+          {/* Main content with padding to account for fixed navbar */}
+          <div className="max-w-screen-xl mx-auto px-5 pt-[72px]">
             {children}
             <Footer />
           </div>

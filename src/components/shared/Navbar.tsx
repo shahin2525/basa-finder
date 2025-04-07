@@ -44,14 +44,14 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Common links for all users
+  // Common links for all users (centered links)
   const commonLinks: NavLink[] = [
     { name: "Home", href: "/" },
     { name: "All Listings", href: "/listings" },
     { name: "About Us", href: "/about" },
   ];
 
-  // Links for authenticated users
+  // Links for authenticated users (right side links)
   const authLinks: NavLink[] = user?.email
     ? [
         { name: "Dashboard", href: `/dashboard/${user.role}` },
@@ -60,73 +60,198 @@ export default function Navbar() {
       ]
     : [{ name: "Login", href: "/login" }];
 
-  const navLinks = [...commonLinks, ...authLinks];
-
   return (
+    // <header
+    //   className={`fixed top-0 w-full z-50 transition-all  ${
+    //     isScrolled
+    //       ? "bg-background/80 backdrop-blur-sm shadow-sm"
+    //       : "bg-background"
+    //   }`}
+    // >
+    //   <div className="max-w-screen-xl mx-auto px-4 py-3">
+    //     <div className="flex items-center justify-between">
+    //       {/* Logo on the left */}
+    //       <div className="flex-shrink-0">
+    //         <Link href="/" className="flex items-center gap-2">
+    //           <span className="text-xl font-bold">YourLogo</span>
+    //         </Link>
+    //       </div>
+
+    //       {/* Centered navigation links (hidden on mobile) */}
+    //       <nav className="hidden md:flex items-center justify-center flex-1">
+    //         <div className="flex space-x-6">
+    //           {commonLinks.map((link) => (
+    //             <Link
+    //               key={link.href}
+    //               href={link.href}
+    //               className={`text-sm font-medium transition-colors hover:text-primary ${
+    //                 pathname === link.href
+    //                   ? "text-primary"
+    //                   : "text-foreground/60"
+    //               }`}
+    //             >
+    //               {link.name}
+    //             </Link>
+    //           ))}
+    //         </div>
+    //       </nav>
+
+    //       {/* Right side auth links */}
+    //       <div className="flex items-center space-x-4">
+    //         {/* Desktop auth links */}
+    //         <div className="hidden md:flex items-center space-x-4">
+    //           {authLinks.map((link) => (
+    //             <Link
+    //               key={link.href}
+    //               href={link.href}
+    //               onClick={(e) => {
+    //                 if (link.onClick) {
+    //                   e.preventDefault();
+    //                   link.onClick();
+    //                 }
+    //               }}
+    //               className={`text-sm font-medium transition-colors hover:text-primary ${
+    //                 pathname === link.href
+    //                   ? "text-primary"
+    //                   : "text-foreground/60"
+    //               }`}
+    //             >
+    //               {link.name}
+    //             </Link>
+    //           ))}
+    //         </div>
+
+    //         {/* Mobile menu button */}
+    //         <div className="md:hidden">
+    //           <DropdownMenu onOpenChange={setIsMenuOpen}>
+    //             <DropdownMenuTrigger asChild>
+    //               <Button variant="ghost" size="icon">
+    //                 <Menu className="h-5 w-5" />
+    //                 <span className="sr-only">Toggle menu</span>
+    //               </Button>
+    //             </DropdownMenuTrigger>
+    //             <DropdownMenuContent
+    //               align="end"
+    //               className="w-56 mt-2 shadow-lg rounded-md bg-background"
+    //             >
+    //               {/* Combine all links for mobile menu */}
+    //               {[...commonLinks, ...authLinks].map((link) => (
+    //                 <DropdownMenuItem key={link.href} asChild>
+    //                   <Link
+    //                     href={link.href}
+    //                     onClick={(e) => {
+    //                       if (link.onClick) {
+    //                         e.preventDefault();
+    //                         link.onClick();
+    //                       }
+    //                     }}
+    //                     className={`w-full ${
+    //                       pathname === link.href ? "bg-accent" : ""
+    //                     }`}
+    //                   >
+    //                     {link.name}
+    //                   </Link>
+    //                 </DropdownMenuItem>
+    //               ))}
+    //             </DropdownMenuContent>
+    //           </DropdownMenu>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </header>
+
     <header
-      className={`fixed top-0  z-50 transition-all bg-amber-200 ${
+      className={`w-full transition-all ${
         isScrolled
           ? "bg-background/80 backdrop-blur-sm shadow-sm"
           : "bg-background"
       }`}
     >
-      <div className="px-4 py-3 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold">YourLogo</span>
-        </Link>
+      <div className="flex items-center justify-between py-3">
+        {/* Logo - Left */}
+        <div className="flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="text-xl font-bold">YourLogo</span>
+          </Link>
+        </div>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={(e) => {
-                if (link.onClick) {
-                  e.preventDefault();
-                  link.onClick();
-                }
-              }}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === link.href ? "text-primary" : "text-foreground/60"
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
+        {/* Center nav - Hidden on mobile */}
+        <nav className="hidden md:flex items-center justify-center flex-1">
+          <div className="flex space-x-6">
+            {commonLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  pathname === link.href ? "text-primary" : "text-foreground/60"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
         </nav>
 
-        <div className="md:hidden">
-          <DropdownMenu onOpenChange={setIsMenuOpen}>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              align="end"
-              className="w-56 mt-2 shadow-lg rounded-md bg-background"
-            >
-              {navLinks.map((link) => (
-                <DropdownMenuItem key={link.href} asChild>
-                  <Link
-                    href={link.href}
-                    onClick={(e) => {
-                      if (link.onClick) {
-                        e.preventDefault();
-                        link.onClick();
-                      }
-                    }}
-                    className={`w-full ${
-                      pathname === link.href ? "bg-accent" : ""
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+        {/* Right side auth links */}
+        <div className="flex items-center space-x-4">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center space-x-4">
+            {authLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={(e) => {
+                  if (link.onClick) {
+                    e.preventDefault();
+                    link.onClick();
+                  }
+                }}
+                className={`text-sm font-medium transition-colors hover:text-primary ${
+                  pathname === link.href ? "text-primary" : "text-foreground/60"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            {/* ... your existing mobile menu code ... */}
+            <DropdownMenu onOpenChange={setIsMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-56 mt-2 shadow-lg rounded-md bg-background"
+              >
+                {/* Combine all links for mobile menu */}
+                {[...commonLinks, ...authLinks].map((link) => (
+                  <DropdownMenuItem key={link.href} asChild>
+                    <Link
+                      href={link.href}
+                      onClick={(e) => {
+                        if (link.onClick) {
+                          e.preventDefault();
+                          link.onClick();
+                        }
+                      }}
+                      className={`w-full ${
+                        pathname === link.href ? "bg-accent" : ""
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
       </div>
     </header>
