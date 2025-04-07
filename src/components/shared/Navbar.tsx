@@ -64,13 +64,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all ${
+      className={`fixed top-0  z-50 transition-all bg-amber-200 ${
         isScrolled
           ? "bg-background/80 backdrop-blur-sm shadow-sm"
           : "bg-background"
       }`}
     >
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div className="px-4 py-3 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
           <span className="text-xl font-bold">YourLogo</span>
         </Link>
