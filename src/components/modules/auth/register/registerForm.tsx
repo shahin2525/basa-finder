@@ -88,7 +88,7 @@ export default function RegisterForm() {
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-2">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input type="email" {...field} value={field.value || ""} />
@@ -99,9 +99,9 @@ export default function RegisterForm() {
           />
           <FormField
             control={form.control}
-            name="email"
+            name="role"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-2">
                 <FormLabel>Role</FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -126,7 +126,7 @@ export default function RegisterForm() {
             control={form.control}
             name="password"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-2">
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} value={field.value || ""} />
@@ -139,7 +139,7 @@ export default function RegisterForm() {
             control={form.control}
             name="passwordConfirm"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="mt-2">
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
                   <Input type="password" {...field} value={field.value || ""} />
