@@ -21,7 +21,10 @@ import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/authServices";
 import Logo from "@/assets/svgs/Logo";
 
+import { useRouter } from "next/navigation";
+
 export default function RegisterForm() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
@@ -39,6 +42,7 @@ export default function RegisterForm() {
       const res = await registerUser(data);
       if (res?.success) {
         toast.success(res?.message);
+        router.push("/");
       } else {
         toast.error(res?.message);
       }
