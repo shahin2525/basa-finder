@@ -106,7 +106,7 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm">
               Subscribe to our newsletter for the latest updates.
             </p>
-            <div className="flex space-x-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 space-x-2 gap-2">
               <input
                 type="email"
                 placeholder="Your email"
