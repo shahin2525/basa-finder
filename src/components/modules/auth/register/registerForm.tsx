@@ -22,6 +22,13 @@ import { registerUser } from "@/services/authServices";
 import Logo from "@/assets/svgs/Logo";
 
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -86,6 +93,31 @@ export default function RegisterForm() {
                 <FormControl>
                   <Input type="email" {...field} value={field.value || ""} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Role</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a role" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="tenant">tenant</SelectItem>
+                    <SelectItem value="landlord">landlord</SelectItem>
+                  </SelectContent>
+                </Select>
+
                 <FormMessage />
               </FormItem>
             )}
