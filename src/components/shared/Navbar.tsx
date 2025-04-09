@@ -277,7 +277,8 @@ import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/authServices";
 import { protectedRoutes } from "@/constants";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-
+import Logo from "../../assets/svgs/logo.png";
+import Image from "next/image";
 type NavLink = {
   name: string;
   href: string;
@@ -335,7 +336,15 @@ export default function Navbar() {
         {/* Logo - Left */}
         <div className="flex-shrink-0 pl-2">
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold">YourLogo</span>
+            {/* <span className="text-xl font-bold">Logo</span> */}
+
+            <Image
+              src={Logo}
+              alt="basaFinder Logo"
+              width={70} // 👈 Adjust width/height as needed
+              height={70}
+              className="object-contain" // 👈 Ensures proper scaling
+            />
           </Link>
         </div>
 
