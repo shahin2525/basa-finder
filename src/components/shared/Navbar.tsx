@@ -287,6 +287,7 @@ type NavLink = {
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const { user, setIsLoading } = useUser();
@@ -410,7 +411,7 @@ export default function Navbar() {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {user?.name || "User"}
+                        {user?.role || "User"}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user?.email}

@@ -19,7 +19,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { registrationSchema } from "./registerValidation";
 import { registerUser } from "@/services/authServices";
-import Logo from "@/assets/svgs/Logo";
+
+import Logo2 from "@/assets/svgs/logo.png";
 
 import { useRouter } from "next/navigation";
 import {
@@ -29,6 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Image from "next/image";
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -61,7 +63,13 @@ export default function RegisterForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
-        <Logo />
+        <Image
+          src={Logo2}
+          alt="basaFinder Logo"
+          width={60} // 👈 Adjust width/height as needed
+          height={60}
+          className="object-contain" // 👈 Ensures proper scaling
+        />
         <div>
           <h1 className="text-xl font-semibold">Register</h1>
           <p className="font-extralight text-sm text-gray-600">

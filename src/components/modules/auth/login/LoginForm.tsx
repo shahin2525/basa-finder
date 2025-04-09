@@ -1,5 +1,5 @@
 "use client";
-// import ReCAPTCHA from "react-google-recaptcha";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -12,7 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
-import Logo from "@/assets/svgs/Logo";
+
+import Logo2 from "@/assets/svgs/logo.png";
 import { zodResolver } from "@hookform/resolvers/zod";
 // import { loginUser,  } from "";
 import { toast } from "sonner";
@@ -21,13 +22,12 @@ import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loginUser } from "@/services/authServices";
 import { loginSchema } from "./loginValidation";
+import Image from "next/image";
 
 export default function LoginForm() {
   const form = useForm({
     resolver: zodResolver(loginSchema),
   });
-
-  //   const [reCaptchaStatus, setReCaptchaStatus] = useState(false);
 
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
@@ -36,17 +36,6 @@ export default function LoginForm() {
   const {
     formState: { isSubmitting },
   } = form;
-
-  //   const handleReCaptcha = async (value: string | null) => {
-  //     try {
-  //       const res = await reCaptchaTokenVerification(value!);
-  //       if (res?.success) {
-  //         setReCaptchaStatus(true);
-  //       }
-  //     } catch (err: any) {
-  //       console.error(err);
-  //     }
-  //   };
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     // console.log(data);
@@ -72,7 +61,13 @@ export default function LoginForm() {
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4 ">
-        <Logo />
+        <Image
+          src={Logo2}
+          alt="basaFinder Logo"
+          width={60} // 👈 Adjust width/height as needed
+          height={60}
+          className="object-contain" // 👈 Ensures proper scaling
+        />
         <div>
           <h1 className="text-xl font-semibold">Login</h1>
           <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
