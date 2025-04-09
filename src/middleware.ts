@@ -1,20 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./services/authServices";
+// import { getCurrentUser } from "./services/AuthService";
 
 type Role = keyof typeof roleBasedPrivateRoutes;
 
 const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes = {
-  landlord: [/^\/landlord/, /^\/create-shop/],
+  user: [/^\/user/, /^\/create-shop/],
   admin: [/^\/admin/],
-  tenant: [/^\/tenant/],
 };
 
 export const middleware = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
+  //   console.log("Cpathname", pathname);
 
   const userInfo = await getCurrentUser();
+  //   console.log("userInfo", userInfo);
 
   if (!userInfo) {
     if (authRoutes.includes(pathname)) {
@@ -29,8 +31,11 @@ export const middleware = async (request: NextRequest) => {
     }
   }
 
-  if (userInfo?.role && roleBasedPrivateRoutes[userInfo?.role as Role]) {
-    const routes = roleBasedPrivateRoutes[userInfo?.role as Role];
+  if (
+    userInfo?.data?.role &&
+    roleBasedPrivateRoutes[userInfo?.data?.role as Role]
+  ) {
+    const routes = roleBasedPrivateRoutes[userInfo?.data?.role as Role];
     if (routes.some((route) => pathname.match(route))) {
       return NextResponse.next();
     }
@@ -42,11 +47,10 @@ export const middleware = async (request: NextRequest) => {
 export const config = {
   matcher: [
     "/login",
+    "/create-shop",
     "/admin",
     "/admin/:page",
-    "/landlord",
-    "/landlord/:page",
-    "/tenant",
-    "/tenant/:page",
+    "/user",
+    "/user/:page",
   ],
 };

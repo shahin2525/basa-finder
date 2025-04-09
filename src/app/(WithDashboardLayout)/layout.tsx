@@ -1,4 +1,4 @@
-// // import { AppSidebar } from "@/components/app-sidebar";
+// import { AppSidebar } from "@/components/app-sidebar";
 import { AppSidebar } from "@/components/modules/dashboard/sidebar/app-sidebar";
 import {
   Breadcrumb,
@@ -55,14 +55,3 @@ export default function DashboardLayout({
     </SidebarProvider>
   );
 }
-// import React from "react";
-
-// const layout = ({ children }: { children: React.ReactNode }) => {
-//   return (
-//     <div>
-//       <main className="min-h-screen">{children}</main>
-//     </div>
-//   );
-// };
-
-// export default layout;

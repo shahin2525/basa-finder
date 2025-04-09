@@ -1,8 +1,10 @@
-const AdminPage = () => {
+import React from "react";
+
+const TestPage = () => {
   return (
     <div>
       <h1>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+        orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
         ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
         dis parturient montes, nascetur ridiculus mus. Donec quam felis,
         ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
@@ -27,4 +29,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default TestPage;

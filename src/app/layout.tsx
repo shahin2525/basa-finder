@@ -46,7 +46,7 @@ export default function RootLayout({
           </div>
 
           {/* Main content with padding to account for fixed navbar */}
-          <div className="max-w-screen-xl mx-auto px-5 pt-[72px]">
+          <div className="max-w-screen-xl mx-auto px-5 pt-[72px] min-h-screen">
             {children}
             <Footer />
           </div>
