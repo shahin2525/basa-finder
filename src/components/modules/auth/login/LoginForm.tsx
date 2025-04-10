@@ -136,7 +136,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Link from "next/link";
 import Logo2 from "@/assets/svgs/logo.png";
 import { zodResolver } from "@hookform/resolvers/zod";
