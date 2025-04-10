@@ -2,178 +2,132 @@
 
 import * as React from "react";
 import {
-  AudioWaveform,
-  BookOpen,
   Bot,
-  Command,
   Frame,
-  GalleryVerticalEnd,
+  LifeBuoy,
   Map,
   PieChart,
-  Settings2,
+  Send,
+  Settings,
   SquareTerminal,
 } from "lucide-react";
 
-// import { NavMain } from "@/components/nav-main";
-// import { NavProjects } from "@/components/nav-projects";
-// import { NavUser } from "@/components/nav-user";
-// import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { TeamSwitcher } from "./team-switcher";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
-
-// This is sample data.
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+import Link from "next/link";
+import Logo from "@/assets/svgs/Logo";
+import { useUser } from "@/context/UserContext";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useUser();
+
+  const data = {
+    navMain: [
+      {
+        title: "Dashboard",
+        url: `/${user?.role}/dashboard`,
+        icon: SquareTerminal,
+        isActive: true,
+      },
+      {
+        title: "Shop",
+        url: `/${user?.role}/shop/products`,
+        icon: Bot,
+        items: [
+          {
+            title: "Manage Products",
+            url: `/${user?.role}/shop/products`,
+          },
+          {
+            title: "Manage Categories",
+            url: `/${user?.role}/shop/category`,
+          },
+          {
+            title: "Manage Brands",
+            url: `/${user?.role}/shop/brand`,
+          },
+          {
+            title: "Manage Coupon",
+            url: `/${user?.role}/shop/manage-coupon`,
+          },
+        ],
+      },
+      {
+        title: "Settings",
+        url: "#",
+        icon: Settings,
+        items: [
+          {
+            title: "Profile",
+            url: `/${user?.role}/profile`,
+          },
+        ],
+      },
+    ],
+    navSecondary: [
+      {
+        title: "Support",
+        url: "#",
+        icon: LifeBuoy,
+      },
+      {
+        title: "Feedback",
+        url: "#",
+        icon: Send,
+      },
+    ],
+    projects: [
+      {
+        name: "Design Engineering",
+        url: "#",
+        icon: Frame,
+      },
+      {
+        name: "Sales & Marketing",
+        url: "#",
+        icon: PieChart,
+      },
+      {
+        name: "Travel",
+        url: "#",
+        icon: Map,
+      },
+    ],
+  };
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link href="/">
+                <div className="flex items-center justify-center">
+                  <Logo />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <h2 className="font-bold text-xl">NextMart</h2>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   );
 }

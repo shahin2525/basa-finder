@@ -16,14 +16,18 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useUser } from "@/context/UserContext";
+// import { useUser } from "@/context/UserContext";
 import { usePathname, useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/authServices";
+import { protectedRoutes } from "@/constants";
 // import { logout } from "@/services/AuthService";
 // import { protectedRoutes } from "@/contants";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  // const { user, setIsLoading } = useUser();
+  const { user, setIsLoading } = useUser();
+  // console.log("user", user);
 
   const router = useRouter();
   const pathname = usePathname();
