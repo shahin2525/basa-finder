@@ -147,10 +147,22 @@ import { loginSchema } from "./loginValidation";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
 
+// Define proper form values type
+type FormValues = {
+  email: string;
+  password: string;
+};
+
 export default function LoginForm() {
-  const form = useForm({
+  const form = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      // Add default values to prevent uncontrolled inputs
+      email: "",
+      password: "",
+    },
   });
+
   const { refreshUser } = useUser();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirectPath");
@@ -160,14 +172,12 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
       const res = await loginUser(data);
 
       if (res?.success) {
-        // Refresh user data immediately after successful login
         await refreshUser();
-
         toast.success(res?.message);
         router.push(redirect || "/");
       } else {
@@ -204,6 +214,7 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
+                  {/* Remove manual value prop - react-hook-form handles it */}
                   <Input type="email" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -218,6 +229,7 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
+                  {/* Remove manual value prop - react-hook-form handles it */}
                   <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -232,7 +244,7 @@ export default function LoginForm() {
       </Form>
 
       <p className="text-sm text-gray-600 text-center mt-4">
-        Do not have an account?{" "}
+        do not have an account?{" "}
         <Link href="/register" className="text-primary hover:underline">
           Register
         </Link>
