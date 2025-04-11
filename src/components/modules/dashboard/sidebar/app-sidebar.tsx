@@ -231,6 +231,9 @@ import {
   User,
   Home,
   Building,
+  ClipboardList,
+  Plus,
+  Eye,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -248,13 +251,16 @@ import Link from "next/link";
 import Logo from "@/assets/svgs/logo.png";
 import { useUser } from "@/context/UserContext";
 import Image from "next/image";
-
+import { usePathname } from "next/navigation";
+//import { cn } from "@/lib/utils"; // Make sure you have this utility
+// import { cn } from "@/lib/utils";
 type UserRole = "admin" | "tenant" | "landlord";
 
 type SidebarSubItem = {
   title: string;
   url: string;
   icon?: LucideIcon;
+  isActive?: boolean;
 };
 
 type SidebarItem = {
@@ -279,7 +285,6 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Admin Dashboard",
       url: "/dashboard/admin",
-      isActive: true,
     },
     {
       title: "Admin-Activity",
@@ -304,7 +309,6 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Tenant Dashboard",
       url: "/dashboard/tenant",
-      isActive: true,
     },
     {
       title: "Tenant-Activity",
@@ -329,7 +333,6 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Dashboard",
       url: "/dashboard/landlord",
-      isActive: true,
     },
     {
       title: "Shop",
@@ -353,13 +356,10 @@ const baseNavItems: BaseNavItems = {
 };
 
 const getIcon = (title: string, role?: UserRole): LucideIcon => {
-  const iconMap: Record<string, LucideIcon> = {
-    Dashboard:
-      role === "tenant"
-        ? Home
-        : role === "landlord"
-        ? Building
-        : SquareTerminal,
+  const exactMatches: Record<string, LucideIcon> = {
+    "Admin Dashboard": SquareTerminal,
+    "Tenant Dashboard": Home,
+    Dashboard: Building,
     Shop: ShoppingCart,
     Products: Package,
     Categories: Tag,
@@ -369,18 +369,53 @@ const getIcon = (title: string, role?: UserRole): LucideIcon => {
     Settings: Settings,
     "Admin Settings": Settings,
     "Property Settings": Settings,
+    "Create-Rental-Request": ClipboardList,
+    "View-All-Rental": Eye,
+    "Admin-Activity": ShoppingCart,
+    "Tenant-Activity": Home,
   };
 
-  return iconMap[title] || Settings;
+  if (exactMatches[title]) {
+    return exactMatches[title];
+  }
+
+  const partialMatches: [string, LucideIcon][] = [
+    ["Admin", Settings],
+    ["Tenant", Home],
+    ["Activity", ShoppingCart],
+    ["Rental", ClipboardList],
+    ["Request", Plus],
+    ["Create", Plus],
+    ["View", Eye],
+    ["Profile", User],
+    ["Setting", Settings],
+  ];
+
+  for (const [keyword, icon] of partialMatches) {
+    if (title.includes(keyword)) {
+      return icon;
+    }
+  }
+
+  switch (role) {
+    case "admin":
+      return Settings;
+    case "tenant":
+      return Home;
+    case "landlord":
+      return Building;
+    default:
+      return Settings;
+  }
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
+  const pathname = usePathname();
 
   const getNavItems = (): SidebarItem[] => {
     if (!user?.role) return [];
 
-    // Type guard to ensure role is valid
     const isValidRole = (role: string): role is UserRole => {
       return Object.keys(baseNavItems).includes(role);
     };
@@ -392,9 +427,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return items.map((item) => ({
       ...item,
       icon: getIcon(item.title, user.role as UserRole),
+      isActive: pathname === item.url || pathname.startsWith(item.url + "/"),
       items: item.items?.map((subItem) => ({
         ...subItem,
         icon: getIcon(subItem.title, user.role as UserRole),
+        isActive:
+          pathname === subItem.url || pathname.startsWith(subItem.url + "/"),
       })),
     }));
   };
