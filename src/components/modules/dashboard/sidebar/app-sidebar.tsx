@@ -221,16 +221,17 @@
 
 import * as React from "react";
 import {
-  Bot,
-  Settings,
   SquareTerminal,
-  Users,
-  Home,
-  ClipboardList,
   ShoppingCart,
+  Settings,
+  Package,
+  Tag,
+  Shield,
+  Gift,
+  User,
+  Home,
   Building,
-  Cog,
-  LucideIcon, // Import LucideIcon type
+  type LucideIcon,
 } from "lucide-react";
 import {
   Sidebar,
@@ -248,113 +249,157 @@ import Logo from "@/assets/svgs/logo.png";
 import { useUser } from "@/context/UserContext";
 import Image from "next/image";
 
-// Use LucideIcon for the icon type
+type UserRole = "admin" | "tenant" | "landlord";
+
+type SidebarSubItem = {
+  title: string;
+  url: string;
+  icon?: LucideIcon;
+};
+
 type SidebarItem = {
   title: string;
   url: string;
   icon: LucideIcon;
   isActive?: boolean;
-  items?: {
-    title: string;
-    url: string;
-  }[];
+  items?: SidebarSubItem[];
+};
+
+type BaseNavItem = {
+  title: string;
+  url: string;
+  isActive?: boolean;
+  items?: Omit<SidebarSubItem, "icon">[];
+};
+
+type BaseNavItems = Record<UserRole, BaseNavItem[]>;
+
+const baseNavItems: BaseNavItems = {
+  admin: [
+    {
+      title: "Admin Dashboard",
+      url: "/dashboard/admin",
+      isActive: true,
+    },
+    {
+      title: "Admin-Activity",
+      url: "/admin/shop/products",
+      items: [
+        { title: "Products", url: "/admin/shop/products" },
+        { title: "Categories", url: "/admin/shop/category" },
+        { title: "Brands", url: "/admin/shop/brand" },
+        { title: "Coupons", url: "/admin/shop/manage-coupon" },
+      ],
+    },
+    {
+      title: "Settings",
+      url: "#",
+      items: [
+        { title: "Profile", url: "/admin/profile" },
+        { title: "Admin Settings", url: "/admin/admin-settings" },
+      ],
+    },
+  ],
+  tenant: [
+    {
+      title: "Tenant Dashboard",
+      url: "/dashboard/tenant",
+      isActive: true,
+    },
+    {
+      title: "Tenant-Activity",
+      url: "/tenant/shop/products",
+      items: [
+        {
+          title: "Create-Rental-Request",
+          url: "/dashboard/tenant/create-rental-request",
+        },
+        { title: "Product Categories", url: "/tenant/shop/category" },
+        { title: "Brands", url: "/tenant/shop/brand" },
+        { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
+      ],
+    },
+    {
+      title: "Settings",
+      url: "#",
+      items: [{ title: "Profile", url: "/tenant/profile" }],
+    },
+  ],
+  landlord: [
+    {
+      title: "Dashboard",
+      url: "/dashboard/landlord",
+      isActive: true,
+    },
+    {
+      title: "Shop",
+      url: "/landlord/shop/products",
+      items: [
+        { title: "View-All-Rental", url: "/landlord/shop/products" },
+        { title: "Property Categories", url: "/landlord/shop/category" },
+        { title: "Brands", url: "/landlord/shop/brand" },
+        { title: "Property Coupons", url: "/landlord/shop/manage-coupon" },
+      ],
+    },
+    {
+      title: "Settings",
+      url: "#",
+      items: [
+        { title: "Profile", url: "/landlord/profile" },
+        { title: "Property Settings", url: "/landlord/property-settings" },
+      ],
+    },
+  ],
+};
+
+const getIcon = (title: string, role?: UserRole): LucideIcon => {
+  const iconMap: Record<string, LucideIcon> = {
+    Dashboard:
+      role === "tenant"
+        ? Home
+        : role === "landlord"
+        ? Building
+        : SquareTerminal,
+    Shop: ShoppingCart,
+    Products: Package,
+    Categories: Tag,
+    Brands: Shield,
+    Coupons: Gift,
+    Profile: User,
+    Settings: Settings,
+    "Admin Settings": Settings,
+    "Property Settings": Settings,
+  };
+
+  return iconMap[title] || Settings;
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { user } = useUser();
 
-  // Dynamic title generator
-  const getTitle = (baseTitle: string) => {
-    switch (user?.role) {
-      case "admin":
-        return `${baseTitle} (Admin)`;
-      case "tenant":
-        return `${baseTitle} (Tenant)`;
-      case "landlord":
-        return `${baseTitle} (Landlord)`;
-      default:
-        return baseTitle;
-    }
+  const getNavItems = (): SidebarItem[] => {
+    if (!user?.role) return [];
+
+    // Type guard to ensure role is valid
+    const isValidRole = (role: string): role is UserRole => {
+      return Object.keys(baseNavItems).includes(role);
+    };
+
+    if (!isValidRole(user.role)) return [];
+
+    const items = baseNavItems[user.role];
+
+    return items.map((item) => ({
+      ...item,
+      icon: getIcon(item.title, user.role as UserRole),
+      items: item.items?.map((subItem) => ({
+        ...subItem,
+        icon: getIcon(subItem.title, user.role as UserRole),
+      })),
+    }));
   };
 
-  // Dynamic submenu title generator
-  const getSubTitle = (baseTitle: string) => {
-    switch (user?.role) {
-      case "admin":
-        return `Admin ${baseTitle}`;
-      case "tenant":
-        return `My ${baseTitle}`;
-      case "landlord":
-        return `Property ${baseTitle}`;
-      default:
-        return baseTitle;
-    }
-  };
-
-  // Get role-specific icon - must return LucideIcon
-  const getIcon = (defaultIcon: LucideIcon): LucideIcon => {
-    switch (user?.role) {
-      case "admin":
-        return Users;
-      case "tenant":
-        return ClipboardList;
-      case "landlord":
-        return Building;
-      default:
-        return defaultIcon;
-    }
-  };
-
-  const navItems: SidebarItem[] = [
-    {
-      title: getTitle("Dashboard"),
-      url: `/${user?.role}/dashboard`,
-      icon: getIcon(SquareTerminal),
-      isActive: true,
-    },
-    {
-      title: getTitle("Shop"),
-      url: `/${user?.role}/shop/products`,
-      icon: getIcon(ShoppingCart),
-      items: [
-        {
-          title: getSubTitle("Products"),
-          url: `/${user?.role}/shop/products`,
-        },
-        {
-          title: getSubTitle("Categories"),
-          url: `/${user?.role}/shop/category`,
-        },
-        {
-          title: getSubTitle("Brands"),
-          url: `/${user?.role}/shop/brand`,
-        },
-        {
-          title: getSubTitle("Coupons"),
-          url: `/${user?.role}/shop/manage-coupon`,
-        },
-      ],
-    },
-    {
-      title: getTitle("Settings"),
-      url: "#",
-      icon: getIcon(Cog),
-      items: [
-        {
-          title: getSubTitle("Profile"),
-          url: `/${user?.role}/profile`,
-        },
-        ...(user?.role === "admin"
-          ? [
-              {
-                title: "Admin Settings",
-                url: `/${user.role}/admin-settings`,
-              },
-            ]
-          : []),
-      ],
-    },
-  ];
+  const navItems = getNavItems();
 
   return (
     <Sidebar collapsible="icon" {...props}>
