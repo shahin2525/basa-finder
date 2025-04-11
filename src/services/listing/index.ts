@@ -1,19 +1,17 @@
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { FieldValues } from "react-hook-form";
 
-// create
-export const createRentalRequest = async (data: FieldValues) => {
+// create listing
+export const createRentalListing = async (data: FormData) => {
   try {
     const res = await fetch(
-      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/tenants/requests`,
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings`,
       {
         method: "POST",
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: data,
       }
     );
 
@@ -25,11 +23,11 @@ export const createRentalRequest = async (data: FieldValues) => {
   }
 };
 
-//get all
-export const getAllRentalRequests = async () => {
+//get all listing
+export const getAllListings = async () => {
   try {
     const res = await fetch(
-      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/category`,
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings`,
       {
         next: {
           tags: ["REQUEST"],

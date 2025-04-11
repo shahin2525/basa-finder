@@ -252,8 +252,7 @@ import Logo from "@/assets/svgs/logo.png";
 import { useUser } from "@/context/UserContext";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-//import { cn } from "@/lib/utils"; // Make sure you have this utility
-// import { cn } from "@/lib/utils";
+
 type UserRole = "admin" | "tenant" | "landlord";
 
 type SidebarSubItem = {
