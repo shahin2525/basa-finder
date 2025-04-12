@@ -28,22 +28,21 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 const CreateRentalRequestForm = () => {
   const [listings, setListings] = useState<TListing[] | []>([]);
-  console.log("listing", listings);
-  console.log("getallListing", getAllListings);
+
   const router = useRouter();
   const form = useForm({
-    defaultValues: {
-      name: "",
-      description: "",
-      price: "",
-      category: "",
-      brand: "",
-      stock: "",
-      weight: "",
-      availableColors: [{ value: "" }],
-      keyFeatures: [{ value: "" }],
-      specification: [{ key: "", value: "" }],
-    },
+    // defaultValues: {
+    //   name: "",
+    //   description: "",
+    //   price: "",
+    //   category: "",
+    //   brand: "",
+    //   stock: "",
+    //   weight: "",
+    //   availableColors: [{ value: "" }],
+    //   keyFeatures: [{ value: "" }],
+    //   specification: [{ key: "", value: "" }],
+    // },
   });
 
   const {
@@ -53,7 +52,6 @@ const CreateRentalRequestForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       const [listingsData] = await Promise.all([getAllListings()]);
-      console.log("listingData", listingsData);
 
       setListings(listingsData?.data);
     };
@@ -65,9 +63,12 @@ const CreateRentalRequestForm = () => {
     try {
       const res = await createRentalRequest(data);
 
+      console.log(res);
       if (res.success) {
         toast.success(res.message);
+        // toast.success(res.message);
         router.push("/dashboard/tenant/requests");
+        //  router.push("/user/shop/products");
       } else {
         toast.error(res.message);
       }
@@ -111,7 +112,7 @@ const CreateRentalRequestForm = () => {
 
             <FormField
               control={form.control}
-              name="category"
+              name="listingID"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Listing</FormLabel>

@@ -27,11 +27,14 @@ export const createRentalRequest = async (data: FieldValues) => {
 };
 
 //get all
-export const getAllRentalRequests = async () => {
+export const getAllRentalRequests = async (page?: string, limit?: string) => {
   try {
     const res = await fetch(
-      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/category`,
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/tenants/requests?limit=${limit}&page=${page}`,
       {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
         next: {
           tags: ["REQUEST"],
         },

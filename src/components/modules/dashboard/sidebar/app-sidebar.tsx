@@ -317,7 +317,7 @@ const baseNavItems: BaseNavItems = {
           title: "Create-Rental-Request",
           url: "/dashboard/tenant/create-rental-request",
         },
-        { title: "Product Categories", url: "/tenant/shop/category" },
+        { title: "All-Requests", url: "/dashboard/tenant/requests" },
         { title: "Brands", url: "/tenant/shop/brand" },
         { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
       ],
