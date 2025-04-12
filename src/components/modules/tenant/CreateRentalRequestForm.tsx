@@ -28,6 +28,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 const CreateRentalRequestForm = () => {
   const [listings, setListings] = useState<TListing[] | []>([]);
+  console.log("listing", listings);
+  console.log("getallListing", getAllListings);
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -51,6 +53,7 @@ const CreateRentalRequestForm = () => {
   useEffect(() => {
     const fetchData = async () => {
       const [listingsData] = await Promise.all([getAllListings()]);
+      console.log("listingData", listingsData);
 
       setListings(listingsData?.data);
     };
@@ -122,7 +125,7 @@ const CreateRentalRequestForm = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {listings.map((listing) => (
+                      {listings?.map((listing) => (
                         <SelectItem key={listing?._id} value={listing?._id}>
                           {listing?.location}
                         </SelectItem>
