@@ -325,7 +325,10 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Settings",
       url: "#",
-      items: [{ title: "Profile", url: "/dashboard/tenant/profile" }],
+      items: [
+        { title: "Profile", url: "/dashboard/tenant/profile" },
+        { title: "Change Password", url: "/dashboard/tenant/change-password" },
+      ],
     },
   ],
   landlord: [

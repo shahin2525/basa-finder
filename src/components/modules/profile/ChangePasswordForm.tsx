@@ -14,36 +14,21 @@ import { Button } from "@/components/ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { updateProfile } from "@/services/profile";
-import { useUser } from "@/context/UserContext";
-import { useEffect } from "react";
+import { changePassword } from "@/services/profile";
 
 type FormValues = {
-  email: string; // Remove optional typing for form values
-  name: string;
+  oldPassword: string; // Remove optional typing for form values
+  newPassword: string;
+  passwordConfirm?: string;
 };
 
-const ProfileForm = () => {
+const ChangePasswordForm = () => {
   const router = useRouter();
-  const { user } = useUser();
 
   // Initialize with empty strings to ensure controlled inputs
-  const form = useForm<FormValues>({
-    defaultValues: {
-      email: "",
-      name: "",
-    },
-  });
-
-  // Reset form when user data changes
-  useEffect(() => {
-    if (user) {
-      form.reset({
-        email: user.email || "",
-        name: user.name || "",
-      });
-    }
-  }, [user, form]);
+  const form = useForm<FormValues>({});
+  const password = form.watch("newPassword");
+  const passwordConfirm = form.watch("passwordConfirm");
 
   const {
     formState: { isSubmitting },
@@ -51,15 +36,15 @@ const ProfileForm = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = await updateProfile(data);
+      const res = await changePassword(data);
       if (res?.success) {
         toast.success(res?.message);
         router.push("/login");
       } else {
-        toast.error(res?.message || "Failed to update profile");
+        toast.error(res?.message || "Failed to change password");
       }
     } catch (err: any) {
-      toast.error(err.message || "An error occurred during profile update");
+      toast.error(err.message || "An error occurred during change password");
       console.error(err);
     }
   };
@@ -75,10 +60,7 @@ const ProfileForm = () => {
           className="object-contain"
         />
         <div>
-          <h1 className="text-xl font-semibold">Update Profile</h1>
-          <p className="font-extralight text-sm text-gray-600">
-            Update your profile information
-          </p>
+          <h1 className="text-xl font-semibold">Change Password</h1>
         </div>
       </div>
 
@@ -86,10 +68,10 @@ const ProfileForm = () => {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="name"
+            name="oldPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Old Password</FormLabel>
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
@@ -99,20 +81,43 @@ const ProfileForm = () => {
           />
           <FormField
             control={form.control}
-            name="email"
+            name="newPassword"
             render={({ field }) => (
               <FormItem className="mt-2">
-                <FormLabel>Email</FormLabel>
+                <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} />
+                  <Input type="newPassword" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          <Button type="submit" className="w-full mt-4" disabled={isSubmitting}>
-            {isSubmitting ? "Updating..." : "Update Profile"}
+          <FormField
+            control={form.control}
+            name="passwordConfirm"
+            render={({ field }) => (
+              <FormItem className="mt-2">
+                <FormLabel>Confirm Password</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} value={field.value || ""} />
+                </FormControl>
+
+                {passwordConfirm && password !== passwordConfirm ? (
+                  <FormMessage> Password does not match </FormMessage>
+                ) : (
+                  <FormMessage />
+                )}
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="submit"
+            className="w-full mt-4"
+            disabled={!!passwordConfirm && password !== passwordConfirm}
+          >
+            {isSubmitting ? "Changing..." : "Changed Password"}
           </Button>
         </form>
       </Form>
@@ -120,4 +125,4 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+export default ChangePasswordForm;
