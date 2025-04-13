@@ -3,10 +3,10 @@
 // import { NMTable } from "@/components/ui/core/NMTable/index";
 // import { IMeta, IReque } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye, Plus, Trash } from "lucide-react";
+import { Edit, Eye, Trash } from "lucide-react";
 
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { TRequest } from "@/types/request";
@@ -16,7 +16,7 @@ import TablePagination from "@/components/ui/core/BFTable/TablePagination";
 // import DiscountModal from "./DiscountModal";
 // import TablePagination from "@/components/ui/core/NMTable/TablePagination";
 
-const ManageProducts = ({
+const ManageRequests = ({
   products,
   meta,
 }: {
@@ -85,23 +85,13 @@ const ManageProducts = ({
     },
     {
       accessorKey: "category",
-      header: "Category",
-      cell: ({ row }) => <span>{row.original.status}</span>,
+      header: "ListingID",
+      cell: ({ row }) => <span>{row.original.listingID}</span>,
     },
     {
       accessorKey: "brand",
-      header: "Brand",
+      header: "Status",
       cell: ({ row }) => <span>{row.original.status}</span>,
-    },
-    {
-      accessorKey: "stock",
-      header: "Stock",
-      cell: ({ row }) => <span>{row.original.status}</span>,
-    },
-    {
-      accessorKey: "price",
-      header: "Price",
-      cell: ({ row }) => <span>$ {row.original.status}</span>,
     },
 
     {
@@ -144,14 +134,14 @@ const ManageProducts = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Manage Products</h1>
+        <h1 className="text-xl font-bold">Manage Request</h1>
         <div className="flex items-center gap-2">
-          <Button
+          {/* <Button
             onClick={() => router.push("/user/shop/products/add-product")}
             size="sm"
           >
             Add Product <Plus />
-          </Button>
+          </Button> */}
         </div>
       </div>
       <NMTable columns={columns} data={products || []} />
@@ -160,4 +150,4 @@ const ManageProducts = ({
   );
 };
 
-export default ManageProducts;
+export default ManageRequests;

@@ -1,7 +1,8 @@
 // import ManageProducts from "@/components/modules/shop/product";
 // import { getAllProducts } from "@/services/Product";
 
-import ManageProducts from "@/components/modules/tenant";
+// import ManageProducts from "@/components/modules/tenant";
+import ManageRequests from "@/components/modules/tenant";
 import { getAllRentalRequests } from "@/services/tenant";
 
 const RequestsPage = async ({
@@ -14,7 +15,7 @@ const RequestsPage = async ({
   const { data, meta } = await getAllRentalRequests(page, "3");
   return (
     <div>
-      <ManageProducts products={data} meta={meta} />
+      <ManageRequests products={data} meta={meta} />
     </div>
   );
 };

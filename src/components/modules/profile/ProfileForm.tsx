@@ -1,6 +1,7 @@
 "use client";
+import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
+import Logo2 from "@/assets/svgs/logo.png";
 import {
   Form,
   FormControl,
@@ -10,55 +11,46 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { SubmitHandler, useForm } from "react-hook-form";
-import Link from "next/link";
-import Logo2 from "@/assets/svgs/logo.png";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-import { useRouter, useSearchParams } from "next/navigation";
-import { loginUser } from "@/services/authServices";
-import { loginSchema } from "./loginValidation";
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { updateProfile } from "@/services/profile";
 import { useUser } from "@/context/UserContext";
-
 // Define proper form values type
 type FormValues = {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+  name?: string;
 };
-
-export default function LoginForm() {
+const ProfileForm = () => {
+  const router = useRouter();
+  const user = useUser();
+  console.log("user", user);
   const form = useForm<FormValues>({
-    resolver: zodResolver(loginSchema),
     defaultValues: {
       // Add default values to prevent uncontrolled inputs
       email: "",
       password: "",
+      name: "",
     },
   });
-
-  const { refreshUser } = useUser();
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirectPath");
-  const router = useRouter();
-
   const {
     formState: { isSubmitting },
   } = form;
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      const res = await loginUser(data);
+      const res = await updateProfile(data);
 
       if (res?.success) {
-        await refreshUser();
         toast.success(res?.message);
-        router.push(redirect || "/");
+        router.push("/");
       } else {
-        toast.error(res?.message || "Login failed");
+        toast.error(res?.message || "failed update profile");
       }
     } catch (err: any) {
-      toast.error(err.message || "An error occurred during login");
+      toast.error(err.message || "An error occurred during update profile");
       console.error(err);
     }
   };
@@ -74,7 +66,7 @@ export default function LoginForm() {
           className="object-contain"
         />
         <div>
-          <h1 className="text-xl font-semibold">Login</h1>
+          <h1 className="text-xl font-semibold">Update Profile</h1>
           <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
         </div>
       </div>
@@ -83,28 +75,25 @@ export default function LoginForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="email"
+            name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
-                  {/* Remove manual value prop - react-hook-form handles it */}
-                  <Input type="email" {...field} />
+                  <Input {...field} value={field.value || ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
-            name="password"
+            name="email"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
+              <FormItem className="mt-2">
+                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  {/* Remove manual value prop - react-hook-form handles it */}
-                  <Input type="password" {...field} />
+                  <Input type="email" {...field} value={field.value || ""} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -116,13 +105,8 @@ export default function LoginForm() {
           </Button>
         </form>
       </Form>
-
-      <p className="text-sm text-gray-600 text-center mt-4">
-        do not have an account?{" "}
-        <Link href="/register" className="text-primary hover:underline">
-          Register
-        </Link>
-      </p>
     </div>
   );
-}
+};
+
+export default ProfileForm;

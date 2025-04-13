@@ -317,7 +317,7 @@ const baseNavItems: BaseNavItems = {
           title: "Create-Rental-Request",
           url: "/dashboard/tenant/create-rental-request",
         },
-        { title: "All-Requests", url: "/dashboard/tenant/requests" },
+        { title: "All-Rental-Requests", url: "/dashboard/tenant/requests" },
         { title: "Brands", url: "/tenant/shop/brand" },
         { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
       ],
@@ -325,7 +325,7 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Settings",
       url: "#",
-      items: [{ title: "Profile", url: "/tenant/profile" }],
+      items: [{ title: "Profile", url: "/dashboard/tenant/profile" }],
     },
   ],
   landlord: [
