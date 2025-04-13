@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { updateProfile } from "@/services/profile";
 import { useUser } from "@/context/UserContext";
 import { useEffect } from "react";
+import { logout } from "@/services/authServices";
 
 type FormValues = {
   email: string; // Remove optional typing for form values
@@ -54,6 +55,7 @@ const ProfileForm = () => {
       const res = await updateProfile(data);
       if (res?.success) {
         toast.success(res?.message);
+        await logout();
         router.push("/login");
       } else {
         toast.error(res?.message || "Failed to update profile");

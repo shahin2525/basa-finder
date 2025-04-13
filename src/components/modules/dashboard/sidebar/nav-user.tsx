@@ -21,23 +21,35 @@ import { usePathname, useRouter } from "next/navigation";
 import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/authServices";
 import { protectedRoutes } from "@/constants";
+import { toast } from "sonner";
 // import { logout } from "@/services/AuthService";
 // import { protectedRoutes } from "@/contants";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
-  const { user, setIsLoading } = useUser();
+  const { user, refreshUser } = useUser();
   // console.log("user", user);
 
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLogout = () => {
-    logout();
-    setIsLoading(true);
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Clear user context
+      await refreshUser();
+      toast.success("Logged out successfully");
 
-    if (protectedRoutes.some((route) => pathname.match(route))) {
-      router.push("/");
+      // Redirect if on protected route
+      if (protectedRoutes.some((route) => pathname.match(route))) {
+        router.push("/");
+      }
+
+      // Force a hard refresh to ensure all cookies are cleared
+      window.location.href = "/";
+    } catch (error) {
+      toast.error("Failed to logout");
+      console.error("Logout error:", error);
     }
   };
 

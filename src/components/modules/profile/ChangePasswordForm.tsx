@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
 import Logo2 from "@/assets/svgs/logo.png";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,23 +10,26 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { changePassword } from "@/services/profile";
-
-type FormValues = {
-  oldPassword: string; // Remove optional typing for form values
-  newPassword: string;
-  passwordConfirm?: string;
-};
+import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { changePasswordValidationSchema } from "./changePasswordValidation";
+import { logout } from "@/services/authServices";
+import { useRouter } from "next/navigation";
 
 const ChangePasswordForm = () => {
   const router = useRouter();
-
   // Initialize with empty strings to ensure controlled inputs
-  const form = useForm<FormValues>({});
+  const form = useForm({
+    resolver: zodResolver(changePasswordValidationSchema),
+    defaultValues: {
+      oldPassword: "",
+      newPassword: "",
+      passwordConfirm: "",
+    },
+  });
   const password = form.watch("newPassword");
   const passwordConfirm = form.watch("passwordConfirm");
 
@@ -34,11 +37,12 @@ const ChangePasswordForm = () => {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await changePassword(data);
       if (res?.success) {
         toast.success(res?.message);
+        await logout();
         router.push("/login");
       } else {
         toast.error(res?.message || "Failed to change password");
