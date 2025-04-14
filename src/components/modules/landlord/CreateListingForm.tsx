@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -8,38 +9,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
 import Image from "next/image";
-import Logo2 from "../../../assets/svgs/logo.png";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+// import Logo2 from "../../../assets/svgs/logo.png";
+//import Logo from "../../assets/svgs/logo.png";
+import Logo2 from "@/assets/svgs/logo.png";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { createListingValidationSchema } from "./createListingValidation";
+import { createListing } from "@/services/landlord";
 
 const CreateListingForm = () => {
   const router = useRouter();
   const form = useForm({
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(createListingValidationSchema),
   });
 
   const {
     formState: { isSubmitting },
   } = form;
 
-  const password = form.watch("password");
-  const passwordConfirm = form.watch("passwordConfirm");
-  //   console.log(password, passwordConfirm);
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const res = await registerUser(data);
+      const res = await createListing(data);
       if (res?.success) {
         toast.success(res?.message);
-        router.push("/");
+        router.push("/dashboard/landlord/all-listing");
       } else {
         toast.error(res?.message);
       }
@@ -56,6 +53,7 @@ const CreateListingForm = () => {
           alt="basaFinder Logo"
           width={60} // 👈 Adjust width/height as needed
           height={60}
+          priority
           className="object-contain" // 👈 Ensures proper scaling
         />
         <div>

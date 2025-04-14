@@ -95,7 +95,7 @@ const baseNavItems: BaseNavItems = {
       url: "/tenant/shop/products",
       items: [
         {
-          title: "Create-Rental-Request",
+          title: "Add-Rental-Request",
           url: "/dashboard/tenant/create-rental-request",
         },
         { title: "All-Rental-Requests", url: "/dashboard/tenant/requests" },
@@ -121,7 +121,7 @@ const baseNavItems: BaseNavItems = {
       title: "Listings", // Changed from "Shop"
       url: "/landlord/shop/products",
       items: [
-        { title: "Create-Listings", url: "/dashboard/landlord/create-listing" },
+        { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
           title: "View-All-Listings",
           url: "/dashboard/landlord/view-all-listings",
