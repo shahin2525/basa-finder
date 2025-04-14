@@ -1,222 +1,3 @@
-// "use client";
-
-// import * as React from "react";
-// import { Bot, Settings, SquareTerminal } from "lucide-react";
-
-// import {
-//   Sidebar,
-//   SidebarContent,
-//   SidebarFooter,
-//   SidebarHeader,
-//   SidebarMenu,
-//   SidebarMenuButton,
-//   SidebarMenuItem,
-// } from "@/components/ui/sidebar";
-// import { NavMain } from "./nav-main";
-// import { NavUser } from "./nav-user";
-// import Link from "next/link";
-// import Logo from "@/assets/svgs/logo.png";
-// import { useUser } from "@/context/UserContext";
-// import Image from "next/image";
-// type SidebarItem = {
-//   title: string;
-//   url: string;
-//   icon: React.ComponentType<{ className?: string }>;
-//   isActive?: boolean;
-//   items?: {
-//     title: string;
-//     url: string;
-//   }[];
-// };
-
-// type SidebarData = {
-//   navMain: SidebarItem[];
-// };
-
-// export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-//   const { user } = useUser();
-//   let data = {};
-//   if (user?.role === "admin") {
-//     data = {
-//       navMain: [
-//         {
-//           title: "Dashboard",
-//           url: `/${user?.role}/dashboard`,
-//           icon: SquareTerminal,
-//           isActive: true,
-//         },
-//         {
-//           title: "Shop",
-//           url: `/${user?.role}/shop/products`,
-//           icon: Bot,
-//           items: [
-//             {
-//               title: "Manage Products",
-//               url: `/${user?.role}/shop/products`,
-//             },
-//             {
-//               title: "Manage Categories",
-//               url: `/${user?.role}/shop/category`,
-//             },
-//             {
-//               title: "Manage Brands",
-//               url: `/${user?.role}/shop/brand`,
-//             },
-//             {
-//               title: "Manage Coupon",
-//               url: `/${user?.role}/shop/manage-coupon`,
-//             },
-//           ],
-//         },
-//         {
-//           title: "Settings",
-//           url: "#",
-//           icon: Settings,
-//           items: [
-//             {
-//               title: "Profile",
-//               url: `/${user?.role}/profile`,
-//             },
-//           ],
-//         },
-//       ],
-//     };
-//   } else if (user?.role === "tenant") {
-//     data = {
-//       navMain: [
-//         {
-//           title: "Dashboard",
-//           url: `/${user?.role}/dashboard`,
-//           icon: SquareTerminal,
-//           isActive: true,
-//         },
-//         {
-//           title: "Shop",
-//           url: `/${user?.role}/shop/products`,
-//           icon: Bot,
-//           items: [
-//             {
-//               title: "Manage Products",
-//               url: `/${user?.role}/shop/products`,
-//             },
-//             {
-//               title: "Manage Categories",
-//               url: `/${user?.role}/shop/category`,
-//             },
-//             {
-//               title: "Manage Brands",
-//               url: `/${user?.role}/shop/brand`,
-//             },
-//             {
-//               title: "Manage Coupon",
-//               url: `/${user?.role}/shop/manage-coupon`,
-//             },
-//           ],
-//         },
-//         {
-//           title: "Settings",
-//           url: "#",
-//           icon: Settings,
-//           items: [
-//             {
-//               title: "Profile",
-//               url: `/${user?.role}/profile`,
-//             },
-//           ],
-//         },
-//       ],
-//     };
-//   } else if (user?.role === "landlord") {
-//     data = {
-//       navMain: [
-//         {
-//           title: "Dashboard",
-//           url: `/${user?.role}/dashboard`,
-//           icon: SquareTerminal,
-//           isActive: true,
-//         },
-//         {
-//           title: "Shop",
-//           url: `/${user?.role}/shop/products`,
-//           icon: Bot,
-//           items: [
-//             {
-//               title: "Manage Products",
-//               url: `/${user?.role}/shop/products`,
-//             },
-//             {
-//               title: "Manage Categories",
-//               url: `/${user?.role}/shop/category`,
-//             },
-//             {
-//               title: "Manage Brands",
-//               url: `/${user?.role}/shop/brand`,
-//             },
-//             {
-//               title: "Manage Coupon",
-//               url: `/${user?.role}/shop/manage-coupon`,
-//             },
-//           ],
-//         },
-//         {
-//           title: "Settings",
-//           url: "#",
-//           icon: Settings,
-//           items: [
-//             {
-//               title: "Profile",
-//               url: `/${user?.role}/profile`,
-//             },
-//           ],
-//         },
-//       ],
-//     };
-//   }
-
-//   return (
-//     <Sidebar collapsible="icon" {...props}>
-//       <SidebarHeader>
-//         <SidebarMenu>
-//           <SidebarMenuItem>
-//             <SidebarMenuButton size="lg" asChild>
-//               <Link href="/">
-//                 <div className="flex items-center justify-center">
-//                   <Image
-//                     src={Logo}
-//                     alt="App Logo"
-//                     width={70}
-//                     height={70}
-//                     className="object-contain"
-//                   />
-//                 </div>
-//                 <div className="grid flex-1 text-left text-sm leading-tight">
-//                   <h2 className="font-bold text-xl">BasaFinder</h2>
-//                 </div>
-//               </Link>
-//               {/* <Link href="/">
-//                 <div className="flex items-center justify-center">
-//                   <Image
-//                     src={Logo}
-//                     alt="App Logo"
-//                     width={70}
-//                     height={70}
-//                     className="object-contain"
-//                   />
-//                 </div>
-//               </Link> */}
-//             </SidebarMenuButton>
-//           </SidebarMenuItem>
-//         </SidebarMenu>
-//       </SidebarHeader>
-//       <SidebarContent>
-//         <NavMain items={data.navMain} />
-//       </SidebarContent>
-//       <SidebarFooter>
-//         <NavUser />
-//       </SidebarFooter>
-//     </Sidebar>
-//   );
-// }
 "use client";
 
 import * as React from "react";
@@ -318,15 +99,15 @@ const baseNavItems: BaseNavItems = {
           url: "/dashboard/tenant/create-rental-request",
         },
         { title: "All-Rental-Requests", url: "/dashboard/tenant/requests" },
-        { title: "Brands", url: "/tenant/shop/brand" },
-        { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
+
+        // { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
       ],
     },
     {
       title: "Settings",
       url: "#",
       items: [
-        { title: "Profile", url: "/dashboard/tenant/profile" },
+        { title: "Update-Profile", url: "/dashboard/tenant/profile" },
         { title: "Change Password", url: "/dashboard/tenant/change-password" },
       ],
     },
@@ -337,11 +118,18 @@ const baseNavItems: BaseNavItems = {
       url: "/dashboard/landlord",
     },
     {
-      title: "Shop",
+      title: "Listings", // Changed from "Shop"
       url: "/landlord/shop/products",
       items: [
-        { title: "View-All-Rental", url: "/landlord/shop/products" },
-        { title: "Property Categories", url: "/landlord/shop/category" },
+        { title: "Create-Listings", url: "/dashboard/landlord/create-listing" },
+        {
+          title: "View-All-Listings",
+          url: "/dashboard/landlord/view-all-listings",
+        },
+        {
+          title: "View-Rental-Listings",
+          url: "/dashboard/landlord/view-rental-listings",
+        },
         { title: "Brands", url: "/landlord/shop/brand" },
         { title: "Property Coupons", url: "/landlord/shop/manage-coupon" },
       ],
@@ -350,8 +138,11 @@ const baseNavItems: BaseNavItems = {
       title: "Settings",
       url: "#",
       items: [
-        { title: "Profile", url: "/landlord/profile" },
-        { title: "Property Settings", url: "/landlord/property-settings" },
+        { title: "Update-Profile", url: "/dashboard/landlord/profile" },
+        {
+          title: "Change Password",
+          url: "/dashboard/landlord/change-password",
+        },
       ],
     },
   ],
