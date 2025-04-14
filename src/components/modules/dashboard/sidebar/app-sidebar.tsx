@@ -119,12 +119,12 @@ const baseNavItems: BaseNavItems = {
     },
     {
       title: "Listings", // Changed from "Shop"
-      url: "/landlord/shop/products",
+      url: "#",
       items: [
         { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
           title: "View-All-Listings",
-          url: "/dashboard/landlord/view-all-listings",
+          url: "/dashboard/landlord/all-listings",
         },
         {
           title: "View-Rental-Listings",
@@ -246,6 +246,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     width={70}
                     height={70}
                     className="object-contain"
+                    priority
                   />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">

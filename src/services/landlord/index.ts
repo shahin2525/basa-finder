@@ -12,6 +12,7 @@ export const createListing = async (data: FieldValues) => {
         method: "POST",
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       }
@@ -26,10 +27,10 @@ export const createListing = async (data: FieldValues) => {
 };
 
 //get all categories
-export const getAllListings = async () => {
+export const getAllListings = async (page?: string, limit?: string) => {
   try {
     const res = await fetch(
-      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings`,
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings?limit=${limit}&page=${page}`,
       {
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,

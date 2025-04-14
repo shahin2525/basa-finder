@@ -1,11 +1,21 @@
-import React from "react";
+import ManageListings from "@/components/modules/landlord";
+import { getAllListings } from "@/services/landlord";
+import {} from "@/services/tenant";
 
-const AllListingPage = () => {
+const GetAllListingPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) => {
+  const { page } = await searchParams;
+
+  const { data, meta } = await getAllListings(page, "3");
+  console.log(data);
   return (
     <div>
-      <h1>All listing page</h1>
+      <ManageListings products={data} meta={meta} />
     </div>
   );
 };
 
-export default AllListingPage;
+export default GetAllListingPage;

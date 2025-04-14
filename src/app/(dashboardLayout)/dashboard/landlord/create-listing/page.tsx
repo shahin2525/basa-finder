@@ -5,7 +5,6 @@ const CreateListings = () => {
   return (
     <div className="flex items-center justify-center">
       <CreateListingForm />
-      <h1>Create listing page</h1>
     </div>
   );
 };

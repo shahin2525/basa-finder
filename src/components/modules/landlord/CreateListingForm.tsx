@@ -14,30 +14,68 @@ import Image from "next/image";
 // import Logo2 from "../../../assets/svgs/logo.png";
 //import Logo from "../../assets/svgs/logo.png";
 import Logo2 from "@/assets/svgs/logo.png";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+
+import {
+  FieldValues,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createListingValidationSchema } from "./createListingValidation";
+
 import { createListing } from "@/services/landlord";
+import { Plus } from "lucide-react";
 
 const CreateListingForm = () => {
   const router = useRouter();
+  // const form = useForm({
+  //   resolver: zodResolver(createListingValidationSchema),
+  // });
   const form = useForm({
-    resolver: zodResolver(createListingValidationSchema),
+    // resolver: zodResolver(createListingValidationSchema),
+    defaultValues: {
+      location: "",
+      description: "",
+      rentAmount: "",
+
+      numberOfBedrooms: "",
+
+      multipleImages: [{ value: "" }],
+    },
   });
 
   const {
     formState: { isSubmitting },
   } = form;
 
+  const { append: appendImages, fields: imageFields } = useFieldArray({
+    control: form.control,
+    name: "multipleImages",
+  });
+
+  const addImages = () => {
+    appendImages({ value: "" });
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const images = data.multipleImages.map(
+      (image: { value: string }) => image.value
+    );
+    const modifiedData = {
+      ...data,
+      multipleImages: images,
+      numberOfBedrooms: Number(data?.numberOfBedrooms),
+      rentAmount: Number(data?.rentAmount),
+    };
+
     try {
-      const res = await createListing(data);
+      const res = await createListing(modifiedData);
       if (res?.success) {
         toast.success(res?.message);
         router.push("/dashboard/landlord/all-listing");
       } else {
+        console.log(res?.message);
         toast.error(res?.message);
       }
     } catch (err: any) {
@@ -53,7 +91,6 @@ const CreateListingForm = () => {
           alt="basaFinder Logo"
           width={60} // 👈 Adjust width/height as needed
           height={60}
-          priority
           className="object-contain" // 👈 Ensures proper scaling
         />
         <div>
@@ -91,7 +128,7 @@ const CreateListingForm = () => {
               </FormItem>
             )}
           />
-          <FormField
+          {/* <FormField
             control={form.control}
             name="multipleImages"
             render={({ field }) => (
@@ -104,7 +141,7 @@ const CreateListingForm = () => {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             control={form.control}
             name="numberOfBedrooms"
@@ -132,6 +169,41 @@ const CreateListingForm = () => {
               </FormItem>
             )}
           />
+          <div>
+            <div className="flex justify-between items-center border-t border-b py-3 my-5">
+              <p className="text-primary font-bold text-xl">
+                Add Multiple image
+              </p>
+              <Button
+                onClick={addImages}
+                variant="outline"
+                className="size-10"
+                type="button"
+              >
+                <Plus className="text-primary" />
+              </Button>
+            </div>
+
+            <div className="my-5">
+              {imageFields.map((featureField, index) => (
+                <div key={featureField.id}>
+                  <FormField
+                    control={form.control}
+                    name={`multipleImages.${index}.value`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>image {index + 1}</FormLabel>
+                        <FormControl>
+                          <Input {...field} value={field.value || ""} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
 
           <Button disabled={isSubmitting} type="submit" className="mt-5 w-full">
             {isSubmitting ? "Registering...." : "Register"}
