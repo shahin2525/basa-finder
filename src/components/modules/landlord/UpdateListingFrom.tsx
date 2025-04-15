@@ -24,24 +24,23 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { createListing } from "@/services/landlord";
+import { updateListing } from "@/services/landlord";
 import { ArrowBigRightIcon, Plus } from "lucide-react";
+import { TListing } from "@/types/listing";
 
-const CreateListingForm = () => {
+const UpdateListingForm = ({ listing }: { listing: TListing }) => {
+  console.log("listing", listing);
   const router = useRouter();
-  // const form = useForm({
-  //   resolver: zodResolver(createListingValidationSchema),
-  // });
+
   const form = useForm({
-    // resolver: zodResolver(createListingValidationSchema),
     defaultValues: {
-      location: "",
-      description: "",
-      rentAmount: "",
-
-      numberOfBedrooms: "",
-
-      multipleImages: [{ value: "" }],
+      location: listing?.location || "",
+      description: listing?.description || "",
+      rentAmount: listing?.rentAmount || "",
+      numberOfBedrooms: listing?.numberOfBedrooms || "",
+      multipleImages: listing?.multipleImages?.map((image) => ({
+        value: image,
+      })) || [{ value: "" }],
     },
   });
 
@@ -70,7 +69,7 @@ const CreateListingForm = () => {
     };
 
     try {
-      const res = await createListing(modifiedData);
+      const res = await updateListing(listing?._id, modifiedData);
       if (res?.success) {
         toast.success(res?.message);
         router.push("/dashboard/landlord/all-listing");
@@ -217,4 +216,4 @@ const CreateListingForm = () => {
   );
 };
 
-export default CreateListingForm;
+export default UpdateListingForm;

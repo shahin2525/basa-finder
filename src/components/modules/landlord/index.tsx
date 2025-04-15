@@ -11,6 +11,10 @@ import { TListing } from "@/types/listing";
 import { IMeta } from "@/types/meta";
 import { NMTable } from "@/components/ui/core/BFTable";
 import TablePagination from "@/components/ui/core/BFTable/TablePagination";
+import { useState } from "react";
+import { toast } from "sonner";
+import { deleteListingForLandlord } from "@/services/landlord";
+import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
 // import DiscountModal from "./DiscountModal";
 // import TablePaginatio from "@/components/ui/core/NMTable/TablePagination";
 
@@ -28,8 +32,32 @@ const ManageListings = ({
     console.log("Viewing product:", product);
   };
 
-  const handleDelete = (productId: string) => {
-    console.log("Deleting product with ID:", productId);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+  const handleDelete = (data: TListing) => {
+    console.log(data);
+    setSelectedId(data?._id);
+    setSelectedItem(data?.location);
+    setModalOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      if (selectedId) {
+        const res = await deleteListingForLandlord(selectedId);
+        console.log(res);
+        if (res.success) {
+          toast.success(res.message);
+          setModalOpen(false);
+        } else {
+          toast.error(res.message);
+        }
+      }
+    } catch (err: any) {
+      console.error(err?.message);
+    }
   };
 
   const columns: ColumnDef<TListing>[] = [
@@ -116,7 +144,7 @@ const ManageListings = ({
             title="Edit"
             onClick={() =>
               router.push(
-                `/user/shop/products/update-product/${row.original._id}`
+                `/dashboard/landlord/update-listing/${row.original._id}`
               )
             }
           >
@@ -126,7 +154,7 @@ const ManageListings = ({
           <button
             className="text-gray-500 hover:text-red-500"
             title="Delete"
-            onClick={() => handleDelete(row.original._id)}
+            onClick={() => handleDelete(row.original)}
           >
             <Trash className="w-5 h-5" />
           </button>
@@ -142,6 +170,12 @@ const ManageListings = ({
       </div>
       <NMTable columns={columns} data={products || []} />
       <TablePagination totalPage={meta?.totalPage} />
+      <DeleteConfirmationModal
+        name={selectedItem}
+        isOpen={isModalOpen}
+        onOpenChange={setModalOpen}
+        onConfirm={handleDeleteConfirm}
+      />
     </div>
   );
 };
