@@ -7,8 +7,6 @@ import { Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
 import { TListing } from "@/types/listing";
 import { IMeta } from "@/types/meta";
 import { NMTable } from "@/components/ui/core/BFTable";
@@ -24,7 +22,7 @@ const ManageListings = ({
   meta: IMeta;
 }) => {
   const router = useRouter();
-  const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+  // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
   const handleView = (product: TListing) => {
     console.log("Viewing product:", product);
@@ -35,41 +33,41 @@ const ManageListings = ({
   };
 
   const columns: ColumnDef<TListing>[] = [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => {
-            if (value) {
-              setSelectedIds((prev) => [...prev, row.original._id]);
-            } else {
-              setSelectedIds(
-                selectedIds.filter((id) => id !== row.original._id)
-              );
-            }
-            row.toggleSelected(!!value);
-          }}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: "select",
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={
+    //         table.getIsAllPageRowsSelected() ||
+    //         (table.getIsSomePageRowsSelected() && "indeterminate")
+    //       }
+    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //       aria-label="Select all"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value) => {
+    //         if (value) {
+    //           setSelectedIds((prev) => [...prev, row.original._id]);
+    //         } else {
+    //           setSelectedIds(
+    //             selectedIds.filter((id) => id !== row.original._id)
+    //           );
+    //         }
+    //         row.toggleSelected(!!value);
+    //       }}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
 
     {
-      accessorKey: "name",
-      header: "Product Name",
+      accessorKey: "location image",
+      header: "Location Name",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <Image

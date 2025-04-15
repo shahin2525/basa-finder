@@ -7,8 +7,6 @@ import { Edit, Eye, Trash } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { useState } from "react";
 import { TRequest } from "@/types/request";
 import { IMeta } from "@/types/meta";
 import { NMTable } from "@/components/ui/core/BFTable";
@@ -24,7 +22,7 @@ const ManageRequests = ({
   meta: IMeta;
 }) => {
   const router = useRouter();
-  const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
+  // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
   const handleView = (product: TRequest) => {
     console.log("Viewing product:", product);
@@ -35,37 +33,37 @@ const ManageRequests = ({
   };
 
   const columns: ColumnDef<TRequest>[] = [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => {
-            if (value) {
-              setSelectedIds((prev) => [...prev, row.original._id]);
-            } else {
-              setSelectedIds(
-                selectedIds.filter((id) => id !== row.original._id)
-              );
-            }
-            row.toggleSelected(!!value);
-          }}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: "select",
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={
+    //         table.getIsAllPageRowsSelected() ||
+    //         (table.getIsSomePageRowsSelected() && "indeterminate")
+    //       }
+    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //       aria-label="Select all"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value) => {
+    //         if (value) {
+    //           setSelectedIds((prev) => [...prev, row.original._id]);
+    //         } else {
+    //           setSelectedIds(
+    //             selectedIds.filter((id) => id !== row.original._id)
+    //           );
+    //         }
+    //         row.toggleSelected(!!value);
+    //       }}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
 
     {
       accessorKey: "name",

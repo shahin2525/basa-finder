@@ -10,7 +10,7 @@ const GetAllListingPage = async ({
   const { page } = await searchParams;
 
   const { data, meta } = await getAllListings(page, "3");
-  console.log(data);
+
   return (
     <div>
       <ManageListings products={data} meta={meta} />

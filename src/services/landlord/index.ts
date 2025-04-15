@@ -67,3 +67,22 @@ export const getAllRentalRequests = async (page?: string, limit?: string) => {
     return Error(error);
   }
 };
+
+// delete category
+export const deleteListing = async (listingId: string): Promise<any> => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/landlords/listings/${listingId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+      }
+    );
+    revalidateTag("Listing");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

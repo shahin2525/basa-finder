@@ -124,7 +124,7 @@ const baseNavItems: BaseNavItems = {
         { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
           title: "View-All-Listings",
-          url: "/dashboard/landlord/all-listings",
+          url: "/dashboard/landlord/all-listing",
         },
         {
           title: "View-Rental-Listings",

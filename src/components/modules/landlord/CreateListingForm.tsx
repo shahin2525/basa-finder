@@ -25,7 +25,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 import { createListing } from "@/services/landlord";
-import { Plus } from "lucide-react";
+import { ArrowBigRightIcon, Plus } from "lucide-react";
 
 const CreateListingForm = () => {
   const router = useRouter();
@@ -171,9 +171,12 @@ const CreateListingForm = () => {
           />
           <div>
             <div className="flex justify-between items-center border-t border-b py-3 my-5">
-              <p className="text-primary font-bold text-xl">
-                Add Multiple image
-              </p>
+              <div className="flex justify-between items-center">
+                <p className="text-primary font-bold text-[20px] ">
+                  To Add Multiple image click Plus Icon
+                </p>
+                <ArrowBigRightIcon className="text-primary" />
+              </div>
               <Button
                 onClick={addImages}
                 variant="outline"
@@ -206,7 +209,7 @@ const CreateListingForm = () => {
           </div>
 
           <Button disabled={isSubmitting} type="submit" className="mt-5 w-full">
-            {isSubmitting ? "Registering...." : "Register"}
+            {isSubmitting ? "Creating...." : "Created"}
           </Button>
         </form>
       </Form>
