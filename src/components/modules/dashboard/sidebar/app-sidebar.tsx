@@ -130,8 +130,6 @@ const baseNavItems: BaseNavItems = {
           title: "View-Rental-Listings",
           url: "/dashboard/landlord/view-rental-listings",
         },
-        { title: "Brands", url: "/landlord/shop/brand" },
-        { title: "Property Coupons", url: "/landlord/shop/manage-coupon" },
       ],
     },
     {

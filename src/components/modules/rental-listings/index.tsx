@@ -21,7 +21,7 @@ const ManageRentalListings = ({
 }) => {
   const router = useRouter();
   // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
-  console.log(request);
+  // console.log(request);
 
   const handleView = (request: TRequest) => {
     console.log("Viewing product:", request);
@@ -76,7 +76,7 @@ const ManageRentalListings = ({
   return (
     <div>
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Manage Rental Listings</h1>
+        <h1 className="text-xl font-bold">Manage Rental Listings Request</h1>
       </div>
       <NMTable columns={columns} data={request || []} />
       <TablePagination totalPage={meta?.totalPage} />

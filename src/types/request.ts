@@ -50,4 +50,5 @@ export type TRequest = {
     __v: number;
   };
   tenantID: TTenant; // Changed from string to TTenant
+  landlordPhoneNumber?: string;
 };
