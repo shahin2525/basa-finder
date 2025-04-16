@@ -1,6 +1,7 @@
 "use server";
 
 import { jwtDecode } from "jwt-decode";
+import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 import { FieldValues } from "react-hook-form";
 
@@ -21,7 +22,7 @@ export const registerUser = async (userData: FieldValues) => {
     if (result.success) {
       (await cookies()).set("accessToken", result.data.accessToken);
     }
-
+    revalidateTag("User");
     return result;
   } catch (error: any) {
     return Error(error);

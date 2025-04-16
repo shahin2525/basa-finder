@@ -70,8 +70,11 @@ const baseNavItems: BaseNavItems = {
       title: "Admin-Activity",
       url: "/admin/shop/products",
       items: [
-        { title: "Products", url: "/admin/shop/products" },
-        { title: "Categories", url: "/admin/shop/category" },
+        { title: "Manage-Users", url: "/dashboard/admin/manage-users" },
+        {
+          title: "Manage-Listings",
+          url: "/dashboard/admin/manage-rental-listings",
+        },
         { title: "Brands", url: "/admin/shop/brand" },
         { title: "Coupons", url: "/admin/shop/manage-coupon" },
       ],
@@ -98,7 +101,7 @@ const baseNavItems: BaseNavItems = {
           title: "Add-Rental-Request",
           url: "/dashboard/tenant/create-rental-request",
         },
-        { title: "All-Rental-Requests", url: "/dashboard/tenant/requests" },
+        { title: "Mange-Request", url: "/dashboard/tenant/requests" },
 
         // { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
       ],
@@ -123,11 +126,11 @@ const baseNavItems: BaseNavItems = {
       items: [
         { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
-          title: "View-All-Listings",
+          title: "Manage-Listing",
           url: "/dashboard/landlord/all-listing",
         },
         {
-          title: "View-Rental-Listings",
+          title: "Manage-Rental-Listings",
           url: "/dashboard/landlord/view-rental-listings",
         },
       ],

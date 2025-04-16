@@ -26,7 +26,7 @@ const DeleteConfirmationModal: React.FC<DeleteModalProps> = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete Item</DialogTitle>
+          <DialogTitle>Delete {name}</DialogTitle>
           <DialogDescription>
             Are you sure you want to delete{" "}
             <span className="font-semibold text-red-500">{name}</span>? This

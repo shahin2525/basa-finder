@@ -23,11 +23,12 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
-import { updateListing } from "@/services/landlord";
+// import { updateListing } from "@/services/landlord";
 import { ArrowBigRightIcon, Plus } from "lucide-react";
 import { TListing } from "@/types/listing";
+import { updateListingForAdmin } from "@/services/admin";
 
-const UpdateListingForm = ({ listing }: { listing: TListing }) => {
+const AdminUpdateListingForm = ({ listing }: { listing: TListing }) => {
   const router = useRouter();
 
   const form = useForm({
@@ -67,10 +68,10 @@ const UpdateListingForm = ({ listing }: { listing: TListing }) => {
     };
 
     try {
-      const res = await updateListing(listing?._id, modifiedData);
+      const res = await updateListingForAdmin(listing?._id, modifiedData);
       if (res?.success) {
         toast.success(res?.message);
-        router.push("/dashboard/landlord/all-listing");
+        router.push("/dashboard/admin/manage-rental-listings");
       } else {
         console.log(res?.message);
         toast.error(res?.message);
@@ -201,4 +202,4 @@ const UpdateListingForm = ({ listing }: { listing: TListing }) => {
   );
 };
 
-export default UpdateListingForm;
+export default AdminUpdateListingForm;

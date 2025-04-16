@@ -1,7 +1,5 @@
 "use client";
 
-// import { NMTable } from "@/components/ui/core/NMTable/index";
-// import { IMeta, IReque } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import {} from "lucide-react";
 
@@ -17,8 +15,6 @@ const ManageRequests = ({
   requests: TRequest[];
   meta: IMeta;
 }) => {
-  // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
-
   const columns: ColumnDef<TRequest>[] = [
     {
       accessorKey: "status",
@@ -37,56 +33,13 @@ const ManageRequests = ({
         <span>{row.original?.landlordPhoneNumber || "N/A"}</span>
       ),
     },
-
-    // {
-    //   accessorKey: "action",
-    //   header: "Action",
-    //   cell: ({ row }) => (
-    //     <div className="flex items-center space-x-3">
-    //       <button
-    //         className="text-gray-500 hover:text-blue-500"
-    //         title="View"
-    //         onClick={() => handleView(row.original)}
-    //       >
-    //         <Eye className="w-5 h-5" />
-    //       </button>
-
-    //       <button
-    //         className="text-gray-500 hover:text-green-500"
-    //         title="Edit"
-    //         onClick={() =>
-    //           router.push(
-    //             `/user/shop/requests/update-product/${row.original._id}`
-    //           )
-    //         }
-    //       >
-    //         <Edit className="w-5 h-5" />
-    //       </button>
-
-    //       <button
-    //         className="text-gray-500 hover:text-red-500"
-    //         title="Delete"
-    //         onClick={() => handleDelete(row.original._id)}
-    //       >
-    //         <Trash className="w-5 h-5" />
-    //       </button>
-    //     </div>
-    //   ),
-    // },
   ];
 
   return (
     <div>
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Manage Request</h1>
-        <div className="flex items-center gap-2">
-          {/* <Button
-            onClick={() => router.push("/user/shop/requests/add-product")}
-            size="sm"
-          >
-            Add Product <Plus />
-          </Button> */}
-        </div>
+        <div className="flex items-center gap-2"></div>
       </div>
       <NMTable columns={columns} data={requests || []} />
       <TablePagination totalPage={meta?.totalPage} />

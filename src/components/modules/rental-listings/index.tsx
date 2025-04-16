@@ -1,7 +1,5 @@
 "use client";
 
-// import { NMTable } from "@/components/ui/core/NMTable/index";
-// import { IMeta, IProduct } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Eye } from "lucide-react";
 
@@ -20,8 +18,6 @@ const ManageRentalListings = ({
   meta: IMeta;
 }) => {
   const router = useRouter();
-  // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
-  // console.log(request);
 
   const handleView = (request: TRequest) => {
     console.log("Viewing product:", request);

@@ -11,10 +11,11 @@ import { NMTable } from "@/components/ui/core/BFTable";
 import TablePagination from "@/components/ui/core/BFTable/TablePagination";
 import { useState } from "react";
 import { toast } from "sonner";
-import { deleteListingForLandlord } from "@/services/landlord";
-import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
 
-const ManageListings = ({
+import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
+import { deleteListingForAdmin } from "@/services/admin";
+
+const AdminManageRentalListings = ({
   listings,
   meta,
 }: {
@@ -37,7 +38,7 @@ const ManageListings = ({
   const handleDeleteConfirm = async () => {
     try {
       if (selectedId) {
-        const res = await deleteListingForLandlord(selectedId);
+        const res = await deleteListingForAdmin(selectedId);
 
         if (res.success) {
           toast.success(res.message);
@@ -94,9 +95,7 @@ const ManageListings = ({
             className="text-gray-500 hover:text-green-500"
             title="Edit"
             onClick={() =>
-              router.push(
-                `/dashboard/landlord/update-listing/${row.original._id}`
-              )
+              router.push(`/dashboard/admin/update-listing/${row.original._id}`)
             }
           >
             <Edit className="w-5 h-5" />
@@ -131,4 +130,4 @@ const ManageListings = ({
   );
 };
 
-export default ManageListings;
+export default AdminManageRentalListings;

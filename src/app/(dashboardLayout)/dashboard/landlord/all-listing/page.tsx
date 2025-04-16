@@ -13,7 +13,7 @@ const GetAllListingPage = async ({
 
   return (
     <div>
-      <ManageListings products={data} meta={meta} />
+      <ManageListings listings={data} meta={meta} />
     </div>
   );
 };
