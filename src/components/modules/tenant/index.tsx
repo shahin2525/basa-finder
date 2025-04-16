@@ -15,10 +15,10 @@ import TablePagination from "@/components/ui/core/BFTable/TablePagination";
 // import TablePagination from "@/components/ui/core/NMTable/TablePagination";
 
 const ManageRequests = ({
-  products,
+  requests,
   meta,
 }: {
-  products: TRequest[];
+  requests: TRequest[];
   meta: IMeta;
 }) => {
   const router = useRouter();
@@ -110,7 +110,7 @@ const ManageRequests = ({
             title="Edit"
             onClick={() =>
               router.push(
-                `/user/shop/products/update-product/${row.original._id}`
+                `/user/shop/requests/update-product/${row.original._id}`
               )
             }
           >
@@ -135,14 +135,14 @@ const ManageRequests = ({
         <h1 className="text-xl font-bold">Manage Request</h1>
         <div className="flex items-center gap-2">
           {/* <Button
-            onClick={() => router.push("/user/shop/products/add-product")}
+            onClick={() => router.push("/user/shop/requests/add-product")}
             size="sm"
           >
             Add Product <Plus />
           </Button> */}
         </div>
       </div>
-      <NMTable columns={columns} data={products || []} />
+      <NMTable columns={columns} data={requests || []} />
       <TablePagination totalPage={meta?.totalPage} />
     </div>
   );

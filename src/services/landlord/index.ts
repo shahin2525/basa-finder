@@ -48,10 +48,13 @@ export const getAllListings = async (page?: string, limit?: string) => {
 };
 
 //
-export const getAllRentalRequests = async (page?: string, limit?: string) => {
+export const getAllRentalListingsRequests = async (
+  page?: string,
+  limit?: string
+) => {
   try {
     const res = await fetch(
-      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/tenants/requests?limit=${limit}&page=${page}`,
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/requests?limit=${limit}&page=${page}`,
       {
         headers: {
           Authorization: (await cookies()).get("accessToken")!.value,

@@ -15,7 +15,7 @@ const RequestsPage = async ({
   const { data, meta } = await getAllRentalRequests(page, "3");
   return (
     <div>
-      <ManageRequests products={data} meta={meta} />
+      <ManageRequests requests={data} meta={meta} />
     </div>
   );
 };

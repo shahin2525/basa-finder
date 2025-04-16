@@ -1,7 +1,8 @@
-import UpdateListingForm from "@/components/modules/landlord/UpdateListingFrom";
+// import UpdateListingForm from "@/components/modules/landlord/UpdateRequestStatusForm ";
+import UpdateListingForm from "@/components/modules/landlord/UpdateListingForm";
 import { getSingleListing } from "@/services/landlord";
 
-const UpdateProductPage = async ({
+const UpdateListingPage = async ({
   params,
 }: {
   params: Promise<{ listingId: string }>;
@@ -17,4 +18,4 @@ const UpdateProductPage = async ({
   );
 };
 
-export default UpdateProductPage;
+export default UpdateListingPage;

@@ -29,7 +29,6 @@ import { ArrowBigRightIcon, Plus } from "lucide-react";
 import { TListing } from "@/types/listing";
 
 const UpdateListingForm = ({ listing }: { listing: TListing }) => {
-  console.log("listing", listing);
   const router = useRouter();
 
   const form = useForm({
@@ -208,7 +207,7 @@ const UpdateListingForm = ({ listing }: { listing: TListing }) => {
           </div>
 
           <Button disabled={isSubmitting} type="submit" className="mt-5 w-full">
-            {isSubmitting ? "Creating...." : "Created"}
+            {isSubmitting ? "Updating...." : "Updated"}
           </Button>
         </form>
       </Form>
