@@ -1,4 +1,5 @@
 export type TUser = {
+  _id: string;
   name: string;
   email: string;
   password?: string;
@@ -6,5 +7,4 @@ export type TUser = {
   role: string;
   deactivate?: boolean;
   __v: number;
-  _id: string;
 };

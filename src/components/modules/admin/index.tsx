@@ -7,7 +7,6 @@ import { Edit, Eye, Trash } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import { TListing } from "@/types/listing";
 import { IMeta } from "@/types/meta";
 import { NMTable } from "@/components/ui/core/BFTable";
 import TablePagination from "@/components/ui/core/BFTable/TablePagination";
@@ -15,31 +14,26 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { deleteListingForLandlord } from "@/services/landlord";
 import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
+import { TUser } from "@/types/user";
 // import DiscountModal from "./DiscountModal";
 // import TablePaginatio from "@/components/ui/core/NMTable/TablePagination";
 
-const ManageListings = ({
-  products,
-  meta,
-}: {
-  products: TListing[];
-  meta: IMeta;
-}) => {
+const ManageUsers = ({ users, meta }: { users: TUser[]; meta: IMeta }) => {
   const router = useRouter();
   // const [selectedIds, setSelectedIds] = useState<string[] | []>([]);
 
-  const handleView = (product: TListing) => {
-    console.log("Viewing product:", product);
+  const handleView = (users: TUser) => {
+    console.log("Viewing product:", users);
   };
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-  const handleDelete = (data: TListing) => {
+  const handleDelete = (data: TUser) => {
     console.log(data);
     setSelectedId(data?._id);
-    setSelectedItem(data?.location);
+    setSelectedItem(data?.name);
     setModalOpen(true);
   };
 
@@ -60,38 +54,33 @@ const ManageListings = ({
     }
   };
 
-  const columns: ColumnDef<TListing>[] = [
+  const columns: ColumnDef<TUser>[] = [
     {
       accessorKey: "location image",
-      header: "Location Name",
+      header: "User Name",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <Image
-            src={row.original.multipleImages[0]}
-            alt={row.original.location}
+            src={row.original?.image || "https://github.com/shadcn.png"}
+            alt={row.original?.name}
             width={40}
             height={40}
             className="w-8 h-8 rounded-full"
           />
-          <span className="truncate">{row.original.location}</span>
+          <span className="truncate">{row.original?.name}</span>
         </div>
       ),
     },
     {
-      accessorKey: "location",
-      header: "Location",
-      cell: ({ row }) => <span>{row.original.location}</span>,
+      accessorKey: "email",
+      header: "Email",
+      cell: ({ row }) => <span>{row.original?.email}</span>,
     },
 
     {
-      accessorKey: "amount",
-      header: "Rent-Amount",
-      cell: ({ row }) => <span>$ {row.original.rentAmount.toFixed(2)}</span>,
-    },
-    {
-      accessorKey: "rooms",
-      header: "Number Of Bedrooms",
-      cell: ({ row }) => <span>$ {row.original.numberOfBedrooms}</span>,
+      accessorKey: "role",
+      header: "User Role",
+      cell: ({ row }) => <span>{row.original?.role}</span>,
     },
 
     {
@@ -136,7 +125,7 @@ const ManageListings = ({
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold">Manage Listings</h1>
       </div>
-      <NMTable columns={columns} data={products || []} />
+      <NMTable columns={columns} data={users || []} />
       <TablePagination totalPage={meta?.totalPage} />
       <DeleteConfirmationModal
         name={selectedItem}
@@ -148,4 +137,4 @@ const ManageListings = ({
   );
 };
 
-export default ManageListings;
+export default ManageUsers;
