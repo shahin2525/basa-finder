@@ -161,7 +161,7 @@ export default function Navbar() {
                 >
                   <Avatar className="h-8 w-8">
                     <AvatarImage
-                      src={user?.image || "/default-avatar.png"}
+                      src={user?.image || "https://github.com/shadcn.png"}
                       alt={user?.name || "User"}
                     />
                     <AvatarFallback>
