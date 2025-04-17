@@ -62,7 +62,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative h-[650px] w-full">
+    <section className="relative h-[750px] md:h-[600px] lg:h-[600px] w-full">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 h-full w-full">
         <Image
