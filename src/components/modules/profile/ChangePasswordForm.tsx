@@ -76,8 +76,9 @@ const ChangePasswordForm = () => {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Old Password</FormLabel>
+
                 <FormControl>
-                  <Input {...field} />
+                  <Input placeholder="provide your old password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -90,7 +91,11 @@ const ChangePasswordForm = () => {
               <FormItem className="mt-2">
                 <FormLabel>New Password</FormLabel>
                 <FormControl>
-                  <Input type="newPassword" {...field} />
+                  <Input
+                    placeholder="provide your new Password"
+                    type="newPassword"
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,7 +109,12 @@ const ChangePasswordForm = () => {
               <FormItem className="mt-2">
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} value={field.value || ""} />
+                  <Input
+                    placeholder="provide your new password"
+                    type="password"
+                    {...field}
+                    value={field.value || ""}
+                  />
                 </FormControl>
 
                 {passwordConfirm && password !== passwordConfirm ? (

@@ -75,16 +75,14 @@ const baseNavItems: BaseNavItems = {
           title: "Manage-Listings",
           url: "/dashboard/admin/manage-rental-listings",
         },
-        { title: "Brands", url: "/admin/shop/brand" },
-        { title: "Coupons", url: "/admin/shop/manage-coupon" },
       ],
     },
     {
       title: "Settings",
       url: "#",
       items: [
-        { title: "Profile", url: "/admin/profile" },
-        { title: "Admin Settings", url: "/admin/admin-settings" },
+        { title: "Update-Profile", url: "/dashboard/admin/profile" },
+        { title: "Change-Password", url: "/dashboard/admin/change-password" },
       ],
     },
   ],

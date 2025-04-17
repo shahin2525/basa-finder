@@ -29,7 +29,6 @@ const AdminManageRentalListings = ({
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const handleDelete = (data: TListing) => {
-    console.log(data);
     setSelectedId(data?._id);
     setSelectedItem(data?.location);
     setModalOpen(true);
@@ -55,7 +54,7 @@ const AdminManageRentalListings = ({
   const columns: ColumnDef<TListing>[] = [
     {
       accessorKey: "location image",
-      header: "Location Name",
+      header: "Location Image",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <Image
@@ -65,7 +64,7 @@ const AdminManageRentalListings = ({
             height={40}
             className="w-8 h-8 rounded-full"
           />
-          <span className="truncate">{row.original.location}</span>
+          {/* <span className="truncate">{row.original.location}</span> */}
         </div>
       ),
     },
