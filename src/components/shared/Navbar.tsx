@@ -159,7 +159,7 @@ export default function Navbar() {
                   className="relative h-8 w-8 rounded-full"
                   aria-label="User menu"
                 >
-                  <Avatar className="h-8 w-8">
+                  <Avatar className="h-8 w-8 cursor-pointer">
                     <AvatarImage
                       src={user?.image || "https://github.com/shadcn.png"}
                       alt={user?.name || "User"}
@@ -183,7 +183,12 @@ export default function Navbar() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/profile">Profile</Link>
+                  <Link
+                    href="
+                  #"
+                  >
+                    Profile
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href={`/dashboard/${user?.role}`}>Dashboard</Link>

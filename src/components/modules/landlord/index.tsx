@@ -54,7 +54,7 @@ const ManageListings = ({
   const columns: ColumnDef<TListing>[] = [
     {
       accessorKey: "location image",
-      header: "Location Name",
+      header: "Location Image",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
           <Image
@@ -64,7 +64,6 @@ const ManageListings = ({
             height={40}
             className="w-8 h-8 rounded-full"
           />
-          <span className="truncate">{row.original.location}</span>
         </div>
       ),
     },

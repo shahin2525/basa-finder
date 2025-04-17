@@ -94,10 +94,7 @@ const CreateListingForm = () => {
           className="object-contain" // 👈 Ensures proper scaling
         />
         <div>
-          <h1 className="text-xl font-semibold">Update Listing</h1>
-          <p className="font-extralight text-sm text-gray-600">
-            Join us today and start your journey!
-          </p>
+          <h1 className="text-xl font-semibold">Create Rental House Listing</h1>
         </div>
       </div>
       <Form {...form}>
@@ -128,20 +125,7 @@ const CreateListingForm = () => {
               </FormItem>
             )}
           />
-          {/* <FormField
-            control={form.control}
-            name="multipleImages"
-            render={({ field }) => (
-              <FormItem className="mt-2">
-                <FormLabel>Listings-Images</FormLabel>
 
-                <FormControl>
-                  <Input type="string" {...field} value={field.value || ""} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="numberOfBedrooms"

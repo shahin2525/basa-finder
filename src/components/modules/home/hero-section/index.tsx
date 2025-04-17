@@ -25,16 +25,16 @@ export default function HeroSection() {
   const [priceRange, setPriceRange] = useState("");
   const [bedrooms, setBedrooms] = useState("");
   const { user } = useUser();
-  console.log("user", user);
+
   const handleCreateListing = () => {
     // Check if user exists and is landlord
 
     if (!user) {
-      toast.error("Please login to create a listing");
+      toast.error("Please login to create a rental house listing");
       return;
     }
     if (user?.role !== "landlord") {
-      toast.error("Only landlords can create listings");
+      toast.error("Only landlord role user can create rental house");
       return;
     }
     router.push("/dashboard/landlord/create-listing");
@@ -42,8 +42,8 @@ export default function HeroSection() {
 
   const handleSearch = () => {
     // Check if user exists and is tenant
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (!user?.id) {
+
+    if (!user) {
       toast.error("Please login to search for rentals");
       return;
     }
@@ -55,8 +55,8 @@ export default function HeroSection() {
     // Redirect with query params
     const query = new URLSearchParams();
     if (location) query.append("location", location);
-    if (priceRange) query.append("price", priceRange);
-    if (bedrooms) query.append("bedrooms", bedrooms);
+    if (priceRange) query.append("rentAmount", priceRange);
+    if (bedrooms) query.append("numberOfBedrooms", bedrooms);
 
     router.push(`/all-listing-page?${query.toString()}`);
   };
@@ -90,13 +90,15 @@ export default function HeroSection() {
             <Button
               onClick={handleCreateListing}
               size="lg"
-              className="bg-primary hover:bg-primary/90"
+              className="bg-primary hover:bg-primary/90 cursor-pointer"
             >
               Add Rental House
             </Button>
             {/* Search Form */}
             <div className="mt-8 rounded-lg bg-white/10 p-6 backdrop-blur-sm">
-              <h2 className="mb-4 text-xl font-semibold">Search Rentals</h2>
+              <h2 className="mb-4 text-xl font-semibold">
+                Search Rentals House
+              </h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
                 {/* Location */}
                 <div>
@@ -131,10 +133,10 @@ export default function HeroSection() {
                       <SelectValue placeholder="Bedrooms" />
                     </SelectTrigger>
                     <SelectContent className="bg-white">
-                      <SelectItem value="1">1 Bedroom</SelectItem>
-                      <SelectItem value="2">2 Bedrooms</SelectItem>
-                      <SelectItem value="3">3 Bedrooms</SelectItem>
-                      <SelectItem value="4+">4+ Bedrooms</SelectItem>
+                      <SelectItem value="1-3">1-3 Bedroom</SelectItem>
+                      <SelectItem value="4-7">4-7 Bedrooms</SelectItem>
+                      <SelectItem value="8-11">8-11 Bedrooms</SelectItem>
+                      <SelectItem value="12+">12+ Bedrooms</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
