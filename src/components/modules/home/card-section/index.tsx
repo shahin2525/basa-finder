@@ -15,14 +15,14 @@ export function RentalCardSection({ properties }: RentalCardSectionProps) {
   const displayedProperties = properties.slice(0, 6);
 
   return (
-    <section className="bg-[#FFF5E4] py-12 md:py-16 lg:py-20">
+    <section className="bg-[#FBF8EF] py-12 md:py-16 lg:py-20 flex justify-center items-center">
       <div className="container px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Rental House Cards
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-600">
+          <p className="mx-auto mt-4 max-w-2xl text-lg ">
             Discover your perfect rental home
           </p>
         </div>
