@@ -2,13 +2,14 @@ import { Button } from "@/components/ui/button";
 import { TListing } from "@/types/listing";
 
 import Image from "next/image";
+import CreateRentalRequestForm from "../../tenant/CreateRentalRequestForm";
 
 const RentalListingDetails = ({ listing }: { listing: TListing }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-white p-4 rounded-md my-5 shadow-sm bg-[#F5EEDC]">
       <div>
         <Image
-          src={listing?.multipleImages[0]}
+          src={listing?.multipleImages[0] || ""}
           alt="listing image"
           width={500}
           height={500}
@@ -48,7 +49,9 @@ const RentalListingDetails = ({ listing }: { listing: TListing }) => {
         </p>
         <hr />
 
-        <Button className="w-full">Buy Now</Button>
+        <Button className="w-full">
+          <CreateRentalRequestForm />
+        </Button>
       </div>
     </div>
   );
