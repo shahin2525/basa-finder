@@ -6,4 +6,6 @@ export const protectedRoutes = [
   "/landlord/:page",
   "/tenant",
   "/tenant/:page",
+  "/create-listing",
+  "/create-rental-request",
 ];

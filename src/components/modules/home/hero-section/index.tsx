@@ -37,7 +37,7 @@ export default function HeroSection() {
       toast.error("Only landlord role user can create rental house");
       return;
     }
-    router.push("/dashboard/landlord/create-listing");
+    router.push("/create-listing");
   };
 
   const handleSearch = () => {

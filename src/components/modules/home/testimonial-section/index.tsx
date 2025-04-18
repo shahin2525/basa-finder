@@ -60,8 +60,8 @@ export default function TestimonialSection() {
     <section className="w-full py-8 md:py-18 lg:py-18 bg-gray-50 dark:bg-gray-800">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-5">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:mb-2">
+          <div className="space-y-5 pb-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:mb-2 lg:pb-2">
               Success Stories
             </h2>
             <p className="max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400 mt-2">

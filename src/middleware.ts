@@ -7,9 +7,9 @@ type Role = keyof typeof roleBasedPrivateRoutes;
 const authRoutes = ["/login", "/register"];
 
 const roleBasedPrivateRoutes = {
-  tenant: [/^\/tenant/, /^\/create-shop/],
+  tenant: [/^\/tenant/, /^\/create-rental-request/],
   admin: [/^\/admin/],
-  landlord: [/^\/landlord/],
+  landlord: [/^\/landlord/, /^\/create-listing/],
 };
 
 export const middleware = async (request: NextRequest) => {
@@ -47,8 +47,10 @@ export const middleware = async (request: NextRequest) => {
 
 export const config = {
   matcher: [
+    "/create-rental-request",
+    "/create-listing",
     "/login",
-    "/create-shop",
+
     "/admin",
     "/admin/:page",
     "/tenant",

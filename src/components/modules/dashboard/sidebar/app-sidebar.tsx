@@ -95,10 +95,10 @@ const baseNavItems: BaseNavItems = {
       title: "Tenant-Activity",
       url: "/tenant/shop/products",
       items: [
-        {
-          title: "Add-Rental-Request",
-          url: "/dashboard/tenant/create-rental-request",
-        },
+        // {
+        //   title: "Add-Rental-Request",
+        //   url: "/dashboard/tenant/create-rental-request",
+        // },
         { title: "Mange-Request", url: "/dashboard/tenant/requests" },
 
         // { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
@@ -122,7 +122,7 @@ const baseNavItems: BaseNavItems = {
       title: "Listings", // Changed from "Shop"
       url: "#",
       items: [
-        { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
+        // { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
           title: "Manage-Listing",
           url: "/dashboard/landlord/all-listing",
