@@ -22,8 +22,8 @@ export default function HeroSection() {
 
   // Search state
   const [location, setLocation] = useState("");
-  const [priceRange, setPriceRange] = useState("");
-  const [bedrooms, setBedrooms] = useState("");
+  const [rentAmount, setRentAmount] = useState("");
+  const [numberOfBedrooms, setBedrooms] = useState("");
   const { user } = useUser();
 
   const handleCreateListing = () => {
@@ -40,9 +40,28 @@ export default function HeroSection() {
     router.push("/create-listing");
   };
 
-  const handleSearch = () => {
-    // Check if user exists and is tenant
+  // const handleSearch = () => {
+  //   // Check if user exists and is tenant
 
+  //   if (!user) {
+  //     toast.error("Please login to search for rentals");
+  //     return;
+  //   }
+  //   if (user.role !== "tenant") {
+  //     toast.error("Only tenants can search listings");
+  //     return;
+  //   }
+
+  //   // Redirect with query params
+  //   const query = new URLSearchParams();
+  //   if (location) query.append("location", location);
+  //   if (rentAmount) query.append("rentAmount", rentAmount);
+  //   if (numberOfBedrooms) query.append("numberOfBedrooms", numberOfBedrooms);
+
+  //   router.push(`/all-rental-listings?${query.toString()}`);
+  // };
+  // In your handleSearch function:
+  const handleSearch = () => {
     if (!user) {
       toast.error("Please login to search for rentals");
       return;
@@ -52,15 +71,13 @@ export default function HeroSection() {
       return;
     }
 
-    // Redirect with query params
     const query = new URLSearchParams();
-    if (location) query.append("location", location);
-    if (priceRange) query.append("rentAmount", priceRange);
-    if (bedrooms) query.append("numberOfBedrooms", bedrooms);
+    if (location) query.append("search", location);
+    if (rentAmount) query.append("rentAmount", rentAmount);
+    if (numberOfBedrooms) query.append("numberOfBedrooms", numberOfBedrooms);
 
-    router.push(`/all-listing-page?${query.toString()}`);
+    router.push(`/all-rental-listings?${query.toString()}`);
   };
-
   return (
     <section className="relative h-[750px] md:h-[600px] lg:h-[600px] w-full">
       {/* Background Image with Overlay */}
@@ -113,7 +130,7 @@ export default function HeroSection() {
 
                 {/* Price Range */}
                 <div>
-                  <Select onValueChange={setPriceRange}>
+                  <Select onValueChange={setRentAmount}>
                     <SelectTrigger className="bg-white text-gray-900">
                       <SelectValue placeholder="Price Range" />
                     </SelectTrigger>

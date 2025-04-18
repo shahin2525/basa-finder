@@ -1,42 +1,56 @@
-//
-export const getAllListingsForTenant = async () =>
-  // page?: string,
-  // limit?: string
-  {
-    try {
-      const res = await fetch(
-        `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings`,
-        {
-          next: {
-            tags: ["Listing"],
-          },
-        }
-      );
+"use server";
+export const getAllListingsForTenant = async (searchParams?: {
+  [key: string]: string | string[] | undefined;
+}) => {
+  try {
+    // Construct query parameters from searchParams
+    const query = new URLSearchParams();
+    if (searchParams?.search)
+      query.append("search", searchParams.search as string);
+    if (searchParams?.rentAmount)
+      query.append("rentAmount", searchParams.rentAmount as string);
+    if (searchParams?.numberOfBedrooms)
+      query.append("numberOfBedrooms", searchParams.numberOfBedrooms as string);
 
-      return res.json();
-    } catch (error: any) {
-      return Error(error);
+    const res = await fetch(
+      `${
+        process.env.BASA_FINDER_PUBLIC_BASE_API
+      }/landlords/listings?${query.toString()}`,
+      {
+        next: {
+          tags: ["Listing"],
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch listings: ${res.status}`);
     }
-  };
 
-// export const getAllListingsForTenant = async () => {
-//   try {
-//     const res = await fetch(
-//       `${process.env.NEXT_PUBLIC_API_BASE_URL}/landlords/listings`,
-//       {
-//         next: {
-//           tags: ["Listing"],
-//         },
-//       }
-//     );
+    return await res.json();
+  } catch (error: any) {
+    console.error("Error fetching listings:", error);
+    throw error;
+  }
+};
+// export const getAllListingsForTenant = async () =>
+//   // page?: string,
+//   // limit?: string
+//   {
+//     try {
+//       const res = await fetch(
+//         `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/listings`,
+//         {
+//           next: {
+//             tags: ["Listing"],
+//           },
+//         }
+//       );
 
-//     if (!res.ok) {
-//       throw new Error(`HTTP error! status: ${res.status}`);
+//       return res.json();
+//     } catch (error: any) {
+//       return Error(error);
 //     }
+//   };
 
-//     return await res.json();
-//   } catch (error: any) {
-//     console.error("Failed to fetch listings:", error);
-//     throw error; // Re-throw to handle in the component
-//   }
-// };
+//
