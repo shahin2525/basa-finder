@@ -1,10 +1,30 @@
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
+"use client";
 import { TListing } from "@/types/listing";
 
 import Image from "next/image";
-import CreateRentalRequestForm from "../../tenant/CreateRentalRequestForm";
+
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/authServices";
 
 const RentalListingDetails = ({ listing }: { listing: TListing }) => {
+  const router = useRouter();
+  const { user } = useUser();
+  const handleGoToRequestPage = async () => {
+    if (!user) {
+      toast.error("Please login to create a rental request");
+      router.push("/login");
+    }
+    if (user?.role !== "tenant") {
+      toast.error("Only tenant can create rental house");
+      await logout();
+      router.push("/login");
+    }
+    router.push("/create-rental-request");
+  };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border border-white p-4 rounded-md my-5 shadow-sm bg-[#F5EEDC]">
       <div>
@@ -48,9 +68,8 @@ const RentalListingDetails = ({ listing }: { listing: TListing }) => {
           <span className="font-semibold">$ {listing?.rentAmount}</span>
         </p>
         <hr />
-
-        <Button className="w-full">
-          <CreateRentalRequestForm />
+        <Button onClick={handleGoToRequestPage} className="my-4">
+          Create Rental Request
         </Button>
       </div>
     </div>

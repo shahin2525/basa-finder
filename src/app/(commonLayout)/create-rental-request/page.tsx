@@ -1,6 +1,10 @@
 import CreateRentalRequestForm from "@/components/modules/tenant/CreateRentalRequestForm";
 
-const CreateRentalRequestPage = () => {
+// import { getAllListingsForTenant } from "@/services/home";
+
+const CreateRentalRequestPage = async () => {
+  // const { data } = await getAllListingsForTenant();
+  // console.log("data", data);
   return (
     <div className="flex items-center justify-center">
       <CreateRentalRequestForm />

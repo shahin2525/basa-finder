@@ -18,3 +18,25 @@ export const getAllListingsForTenant = async () =>
       return Error(error);
     }
   };
+
+// export const getAllListingsForTenant = async () => {
+//   try {
+//     const res = await fetch(
+//       `${process.env.NEXT_PUBLIC_API_BASE_URL}/landlords/listings`,
+//       {
+//         next: {
+//           tags: ["Listing"],
+//         },
+//       }
+//     );
+
+//     if (!res.ok) {
+//       throw new Error(`HTTP error! status: ${res.status}`);
+//     }
+
+//     return await res.json();
+//   } catch (error: any) {
+//     console.error("Failed to fetch listings:", error);
+//     throw error; // Re-throw to handle in the component
+//   }
+// };

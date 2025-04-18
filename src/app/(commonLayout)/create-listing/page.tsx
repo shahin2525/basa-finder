@@ -1,7 +1,7 @@
 import CreateListingForm from "@/components/modules/landlord/CreateListingForm";
 import React from "react";
 
-const CreateListings = () => {
+const CreateListingsPage = async () => {
   return (
     <div className="flex items-center justify-center">
       <CreateListingForm />
@@ -9,4 +9,4 @@ const CreateListings = () => {
   );
 };
 
-export default CreateListings;
+export default CreateListingsPage;
