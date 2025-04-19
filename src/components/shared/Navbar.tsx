@@ -67,8 +67,8 @@ export default function Navbar() {
   const commonLinks: NavLink[] = [
     { name: "Home", href: "/" },
     { name: "All Rental Listings", href: "/all-rental-listings" },
-    { name: "About Us", href: "/about" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "About Us", href: "/about-us" },
+    { name: "Contact Us", href: "/contact-us" },
   ];
 
   // Links for authenticated users

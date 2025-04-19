@@ -66,11 +66,9 @@ const ManageRequests = ({
           {row.original?.status?.toLowerCase() === "approve" && (
             <button
               className="text-gray-500 hover:text-green-500"
-              title="Edit"
+              title="payment"
               onClick={() =>
-                router.push(
-                  `/dashboard/landlord/update-request-status/${row.original?._id}`
-                )
+                router.push(`/dashboard/tenant/requests/${row.original?._id}`)
               }
             >
               <Banknote className="w-5 h-5" />

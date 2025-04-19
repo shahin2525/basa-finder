@@ -1,39 +1,11 @@
 // import { RentalCard } from "@/components/modules/home/card-section/card";
 // import { getAllListingsForTenant } from "@/services/home";
 // import { TListing } from "@/types/listing";
-// import React from "react";
-
-// const AllRentalListings = async () => {
-//   const { data } = await getAllListingsForTenant();
-//   return (
-//     <div className="bg-[#FDFBEE] py-10 px-3">
-//       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-center py-4">
-//         All Rental Listing
-//       </h1>
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mx-auto">
-//         {data.map((listing: TListing) => (
-//           <RentalCard property={listing} key={listing?._id}></RentalCard>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default AllRentalListings;
-// import { RentalCard } from "@/components/modules/home/card-section/card";
-// import { getAllListingsForTenant } from "@/services/home";
-// import { TListing } from "@/types/listing";
-
-// interface SearchParams {
-//   search?: string;
-//   rentAmount?: string;
-//   numberOfBedrooms?: string;
-// }
 
 // const AllRentalListings = async ({
 //   searchParams,
 // }: {
-//   searchParams: SearchParams;
+//   searchParams: { [key: string]: string | string[] | undefined };
 // }) => {
 //   const response = await getAllListingsForTenant(searchParams);
 //   const listings = response?.data || [];
@@ -51,12 +23,12 @@
 //         <div className="text-center mb-6">
 //           <p className="text-gray-600">
 //             {searchParams.rentAmount &&
-//               `Price: ${searchParams.rentAmount
+//               `Price: ${String(searchParams.rentAmount)
 //                 .replace("-", " to ")
 //                 .replace("+", "+")}`}
 //             {searchParams.rentAmount && searchParams.numberOfBedrooms && " • "}
 //             {searchParams.numberOfBedrooms &&
-//               `Bedrooms: ${searchParams.numberOfBedrooms
+//               `Bedrooms: ${String(searchParams.numberOfBedrooms)
 //                 .replace("-", " to ")
 //                 .replace("+", "+")}`}
 //           </p>
@@ -86,33 +58,40 @@ import { RentalCard } from "@/components/modules/home/card-section/card";
 import { getAllListingsForTenant } from "@/services/home";
 import { TListing } from "@/types/listing";
 
-const AllRentalListings = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) => {
-  const response = await getAllListingsForTenant(searchParams);
+interface AllRentalListingsProps {
+  searchParams: {
+    search?: string;
+    rentAmount?: string;
+    numberOfBedrooms?: string;
+    [key: string]: string | string[] | undefined;
+  };
+}
+
+const AllRentalListings = async ({ searchParams }: AllRentalListingsProps) => {
+  // First get the listings using searchParams
+  const response = await getAllListingsForTenant(await searchParams);
   const listings = response?.data || [];
+
+  // Extract the search params after awaiting
+  const { search, rentAmount, numberOfBedrooms } = await searchParams;
 
   return (
     <div className="bg-[#FDFBEE] py-10 px-3">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-center py-4">
-        {searchParams?.search
-          ? `Rentals in ${searchParams.search}`
-          : "All Rental Listings"}
+        {search ? `Rentals in ${search}` : "All Rental Listings"}
       </h1>
 
       {/* Show search summary if filters are applied */}
-      {(searchParams?.rentAmount || searchParams?.numberOfBedrooms) && (
+      {(rentAmount || numberOfBedrooms) && (
         <div className="text-center mb-6">
           <p className="text-gray-600">
-            {searchParams.rentAmount &&
-              `Price: ${String(searchParams.rentAmount)
+            {rentAmount &&
+              `Price: ${String(rentAmount)
                 .replace("-", " to ")
                 .replace("+", "+")}`}
-            {searchParams.rentAmount && searchParams.numberOfBedrooms && " • "}
-            {searchParams.numberOfBedrooms &&
-              `Bedrooms: ${String(searchParams.numberOfBedrooms)
+            {rentAmount && numberOfBedrooms && " • "}
+            {numberOfBedrooms &&
+              `Bedrooms: ${String(numberOfBedrooms)
                 .replace("-", " to ")
                 .replace("+", "+")}`}
           </p>

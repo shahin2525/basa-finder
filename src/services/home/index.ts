@@ -5,8 +5,8 @@ export const getAllListingsForTenant = async (searchParams?: {
   try {
     // Construct query parameters from searchParams
     const query = new URLSearchParams();
-    if (searchParams?.search)
-      query.append("search", searchParams.search as string);
+    if (await searchParams?.search)
+      query.append("search", searchParams!.search as string);
     if (searchParams?.rentAmount)
       query.append("rentAmount", searchParams.rentAmount as string);
     if (searchParams?.numberOfBedrooms)
