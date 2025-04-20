@@ -1,5 +1,6 @@
 // import { getSingleListing } from "@/services/landlord";
 
+import Checkout from "@/components/modules/payment/PaymentCheckout";
 import { getSingleListing } from "@/services/landlord";
 import { getSingRequestForPayment } from "@/services/payment";
 
@@ -11,13 +12,13 @@ const PaymentPage = async ({
   const { requestId } = await params;
 
   const { data: request } = await getSingRequestForPayment(requestId);
-  console.log("request", request);
+
   const { data: listing } = await getSingleListing(request?.listingID);
-  console.log("listing", listing);
+
   return (
     <div className="flex justify-center items-center">
       {/* <UpdateListingForm listing={listing} /> */}
-      <h1>payment page</h1>
+      <Checkout listingData={listing} />
     </div>
   );
 };

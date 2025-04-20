@@ -57,7 +57,7 @@ export default function TestimonialSection() {
   };
 
   return (
-    <section className="w-full py-8 md:py-18 lg:py-18 bg-gray-50 dark:bg-gray-800">
+    <section className="w-full py-8 md:py-18 lg:py-18 bg-gray-50 dark:bg-gray-800 mx-auto flex items-center justify-center">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-5 pb-2">

@@ -18,15 +18,8 @@ import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { useUser } from "@/context/UserContext";
 import { TListing } from "@/types/listing";
-import { createRentalRequest } from "@/services/tenant";
 
-// interface Bike {
-//   _id: string;
-//   name: string;
-//   model: string;
-//   price: number;
-//   bikeImage: string;
-// }
+import { createOrder } from "@/services/payment";
 
 interface CheckoutProps {
   listingData: TListing;
@@ -61,7 +54,7 @@ export default function Checkout({ listingData }: CheckoutProps) {
       };
 
       //   TODO
-      const res = await createRentalRequest(orderInfo);
+      const res = await createOrder(orderInfo);
 
       if (res.success) {
         toast.success(res.message);
@@ -82,13 +75,14 @@ export default function Checkout({ listingData }: CheckoutProps) {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex flex-col md:flex-row gap-6">
               {/* Bike Image */}
-              <div className="w-full md:w-2/5">
+              <div className="w-full md:w-2/5 flex justify-center items-center">
                 <Image
                   src={listing?.multipleImages[0]}
                   alt={listing?.location}
                   width={400}
                   height={300}
                   className="rounded-lg object-cover w-full h-auto"
+                  priority
                 />
               </div>
 
@@ -97,9 +91,18 @@ export default function Checkout({ listingData }: CheckoutProps) {
                 <h1 className="text-2xl font-bold">Checkout</h1>
 
                 <div className="space-y-2">
-                  <h2 className="text-xl font-semibold">{listing?.location}</h2>
-                  <p className="text-lg">Model: {listing?.location}</p>
-                  <p className="text-lg">Price: ${listing?.rentAmount}</p>
+                  <h2 className="">
+                    <span className="text-xl font-semibold">Location </span> :{" "}
+                    {listing?.location}
+                  </h2>
+                  <p className="text-lg">
+                    <span className="text-xl font-semibold">Description </span>{" "}
+                    : {listing?.description}
+                  </p>
+                  <p className="text-lg">
+                    <span className="text-xl font-semibold">Price </span> : $
+                    {listing?.rentAmount}
+                  </p>
                 </div>
 
                 <FormField
