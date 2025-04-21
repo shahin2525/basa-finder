@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🏠 BasaFinder - Smart Rental Platform
+BasaFinder Banner
 
-## Getting Started
+BasaFinder is a role-based rental platform where landlords list properties, tenants book them, and admins manage the ecosystem. Supports secure payments, AI-driven recommendations, and full moderation.
 
-First, run the development server:
+✨ Features
+Role Permissions
+Tenant Browse properties, book rentals, make payments
+Landlord Post/update listings, approve/reject bookings
+Admin Delete users, manage roles, deactivate listings
+✅ Property Listings – Filter, search, and book rentals
+✅ Role-Based Access Control (RBAC) – Secure routes for tenants/landlords/admins
+✅ Payments – Integration with Nagad/bKash (success/fail tracking)
+✅ AI Tools – Fraud detection, chatbot support, smart recommendations
 
-```bash
+🛠 Tech Stack
+Area Technologies Used
+Frontend Next.js, React, TypeScript, Shadcn UI, React Hook Form
+Backend Node.js, Express, TypeScript, MongoDB, Mongoose
+Auth JWT, Bcrypt, Role-based access
+DevOps Docker (optional), Vercel/AWS
+� Installation (Local Development)
+Prerequisites
+Node.js ≥ v18
+
+MongoDB (local or MongoDB Atlas)
+
+Git
+
+Steps
+Clone the repo
+
+bash
+git clone https://github.com/yourusername/basaFinder.git
+cd basaFinder
+Set up backend
+
+bash
+cd server
+npm install
+cp .env.example .env # Update MongoDB/JWT keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Set up frontend
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+bash
+cd ../client
+npm install
+npm run dev
+Access the app
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Frontend: http://localhost:3000
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Backend API: http://localhost:5000
 
-## Learn More
+🌐 Live Demo
+🔗 https://basafinder.vercel.app (Replace with your live link)
 
-To learn more about Next.js, take a look at the following resources:
+📂 Project Structure
+bash
+basaFinder/
+├── client/ # Next.js frontend
+│ ├── src/
+│ │ ├── app/ # Role-based routes
+│ │ ├── lib/ # API calls, auth logic
+├── server/ # Express backend
+│ ├── src/
+│ │ ├── models/ # MongoDB schemas
+│ │ ├── routes/ # API endpoints
+│ │ ├── utils/ # Bcrypt, JWT helpers
+📜 License
+MIT © Your Name
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+📬 Contact
+Email: hello@basafinder.com
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHub Issues: Report Bugs Here
