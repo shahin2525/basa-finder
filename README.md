@@ -1,76 +1,151 @@
-🏠 BasaFinder - Smart Rental Platform
-BasaFinder Banner
+🏠 basaFinder
+basaFinder is a role-based rental house management web application that connects landlords and tenants through a secure, feature-rich platform. It supports real-time listings, secure authentication, and payment functionality. The platform has three user roles: Admin, Landlord, and Tenant.
 
-BasaFinder is a role-based rental platform where landlords list properties, tenants book them, and admins manage the ecosystem. Supports secure payments, AI-driven recommendations, and full moderation.
+🔗 Live Demo
+🌐 Click here to view the live website
 
-✨ Features
-Role Permissions
-Tenant Browse properties, book rentals, make payments
-Landlord Post/update listings, approve/reject bookings
-Admin Delete users, manage roles, deactivate listings
-✅ Property Listings – Filter, search, and book rentals
-✅ Role-Based Access Control (RBAC) – Secure routes for tenants/landlords/admins
-✅ Payments – Integration with Nagad/bKash (success/fail tracking)
-✅ AI Tools – Fraud detection, chatbot support, smart recommendations
+Replace this link with your actual deployed site URL
 
-🛠 Tech Stack
-Area Technologies Used
-Frontend Next.js, React, TypeScript, Shadcn UI, React Hook Form
-Backend Node.js, Express, TypeScript, MongoDB, Mongoose
-Auth JWT, Bcrypt, Role-based access
-DevOps Docker (optional), Vercel/AWS
-� Installation (Local Development)
-Prerequisites
-Node.js ≥ v18
+🚀 Features
+👤 Role-Based Access
+Admin
 
-MongoDB (local or MongoDB Atlas)
+Delete and update any user (Tenant or Landlord)
 
-Git
+Update/delete posted houses
 
-Steps
-Clone the repo
+Manage user roles
 
+Deactivate users
+
+Landlord
+
+Post houses for rent (after logging in)
+
+Manage their own listings
+
+Accept/reject tenant requests
+
+Tenant
+
+Browse and request rental houses
+
+Make payments after landlord approval
+
+🔒 Authentication & Authorization
+Role-based authentication
+
+Protected routes for different user types
+
+Secure password hashing using bcrypt
+
+Token-based authentication using JWT
+
+💳 Payment System
+Secure payment gateway
+
+Tenants can pay rent after approval
+
+🧑‍💻 Tech Stack
+Frontend
+React.js
+
+Next.js
+
+TypeScript
+
+ShadCN UI
+
+React Hook Form
+
+AI Integration
+
+Backend
+Node.js
+
+Express.js
+
+TypeScript
+
+JWT
+
+bcrypt
+
+MongoDB
+
+Mongoose
+
+📁 Project Structure
 bash
-git clone https://github.com/yourusername/basaFinder.git
-cd basaFinder
-Set up backend
-
-bash
-cd server
-npm install
-cp .env.example .env # Update MongoDB/JWT keys
-npm run dev
-Set up frontend
-
-bash
-cd ../client
-npm install
-npm run dev
-Access the app
-
-Frontend: http://localhost:3000
-
-Backend API: http://localhost:5000
-
-🌐 Live Demo
-🔗 https://basafinder.vercel.app (Replace with your live link)
-
-📂 Project Structure
-bash
+Copy
+Edit
 basaFinder/
-├── client/ # Next.js frontend
-│ ├── src/
-│ │ ├── app/ # Role-based routes
-│ │ ├── lib/ # API calls, auth logic
-├── server/ # Express backend
-│ ├── src/
-│ │ ├── models/ # MongoDB schemas
-│ │ ├── routes/ # API endpoints
-│ │ ├── utils/ # Bcrypt, JWT helpers
-📜 License
-MIT © Your Name
+│
+├── frontend/ # Next.js Frontend
+│ ├── components/
+│ ├── pages/
+│ ├── hooks/
+│ └── utils/
+│
+├── backend/ # Node.js Backend
+│ ├── routes/
+│ ├── controllers/
+│ ├── models/
+│ └── middlewares/
+│
+└── README.md
+🛡️ Security
+Passwords hashed with bcrypt
 
-📬 Contact
-Email: hello@basafinder.com
+JWT-based session management
 
-GitHub Issues: Report Bugs Here
+Middleware to protect sensitive routes by user role
+
+🧾 How to Use
+Clone the repository:
+
+bash
+Copy
+Edit
+git clone https://github.com/your-username/basaFinder.git
+Navigate to the frontend and install dependencies:
+
+bash
+Copy
+Edit
+cd frontend
+npm install
+Navigate to the backend and install dependencies:
+
+bash
+Copy
+Edit
+cd backend
+npm install
+Set up .env files for environment variables
+
+Run development servers:
+
+bash
+Copy
+Edit
+
+# Backend
+
+npm run dev
+
+# Frontend
+
+npm run dev
+📌 Future Improvements
+Real-time chat between tenant and landlord
+
+Notification system
+
+Admin dashboard with analytics
+
+Review and rating system
+
+📧 Contact
+For any feedback or issues, feel free to reach out:
+📩 your-email@example.com
