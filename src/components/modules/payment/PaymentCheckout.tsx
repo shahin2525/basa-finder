@@ -13,7 +13,7 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 import { Card } from "@/components/ui/card";
 import { useUser } from "@/context/UserContext";
@@ -26,7 +26,7 @@ interface CheckoutProps {
 }
 
 export default function Checkout({ listingData }: CheckoutProps) {
-  const router = useRouter();
+  // const router = useRouter();
   const { user } = useUser();
   const form = useForm({
     defaultValues: {
@@ -58,8 +58,13 @@ export default function Checkout({ listingData }: CheckoutProps) {
 
       if (res.success) {
         toast.success(res.message);
-
-        router.push("/dashboard/tenant/requests");
+        console.log("res", res);
+        if (res?.data) {
+          setTimeout(() => {
+            window.location.href = res?.data;
+          }, 1000);
+        }
+        // router.push("/dashboard/tenant/requests");
       } else {
         toast.error(res.message);
       }

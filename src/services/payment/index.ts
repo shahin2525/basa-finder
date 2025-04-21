@@ -47,3 +47,42 @@ export const createOrder = async (data: FieldValues) => {
     return Error(error);
   }
 };
+// `${process.env.BASA_FINDER_PUBLIC_BASE_API}/landlords/requests?limit=${limit}&page=${page}`,
+// get single product
+export const verifyOrder = async (orderId: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/orders/verify?order_id=${orderId}`,
+      {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        cache: "no-store",
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
+
+export const getTenantOrders = async (page?: string, limit?: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/orders/all?limit=${limit}&page=${page}`,
+      {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        next: {
+          tags: ["Order"],
+        },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error: any) {
+    return Error(error.message);
+  }
+};
