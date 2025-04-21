@@ -1,17 +1,17 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Trash } from "lucide-react";
+// import { Edit, Trash } from "lucide-react";
 
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 import { IMeta } from "@/types/meta";
 import { NMTable } from "@/components/ui/core/BFTable";
 import TablePagination from "@/components/ui/core/BFTable/TablePagination";
-import { useState } from "react";
-import { toast } from "sonner";
-import { deleteListingForLandlord } from "@/services/landlord";
-import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
+
+// import { toast } from "sonner";
+// import { deleteListingForLandlord } from "@/services/landlord";
+// import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
 import { TOrder } from "@/types/payment";
 
 const ManageOrders = ({
@@ -21,35 +21,35 @@ const ManageOrders = ({
   listings: TOrder[];
   meta: IMeta;
 }) => {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  // const [isModalOpen, setModalOpen] = useState(false);
+  // const [selectedId, setSelectedId] = useState<string | null>(null);
+  // const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
-  const handleDelete = (data: TOrder) => {
-    console.log(data);
-    setSelectedId(data?._id);
-    setSelectedItem(data?.email);
-    setModalOpen(true);
-  };
+  // const handleDelete = (data: TOrder) => {
+  //   console.log(data);
+  //   setSelectedId(data?._id);
+  //   setSelectedItem(data?.email);
+  //   setModalOpen(true);
+  // };
 
-  const handleDeleteConfirm = async () => {
-    try {
-      if (selectedId) {
-        const res = await deleteListingForLandlord(selectedId);
+  // const handleDeleteConfirm = async () => {
+  //   try {
+  //     if (selectedId) {
+  //       const res = await deleteListingForLandlord(selectedId);
 
-        if (res.success) {
-          toast.success(res.message);
-          setModalOpen(false);
-        } else {
-          toast.error(res.message);
-        }
-      }
-    } catch (err: any) {
-      console.error(err?.message);
-    }
-  };
+  //       if (res.success) {
+  //         toast.success(res.message);
+  //         setModalOpen(false);
+  //       } else {
+  //         toast.error(res.message);
+  //       }
+  //     }
+  //   } catch (err: any) {
+  //     console.error(err?.message);
+  //   }
+  // };
 
   const columns: ColumnDef<TOrder>[] = [
     {
@@ -87,9 +87,9 @@ const ManageOrders = ({
     {
       accessorKey: "action",
       header: "Action",
-      cell: ({ row }) => (
+      cell: ({}) => (
         <div className="flex items-center space-x-3">
-          <button
+          {/* <button
             className="text-gray-500 hover:text-green-500"
             title="Edit"
             onClick={() =>
@@ -99,15 +99,15 @@ const ManageOrders = ({
             }
           >
             <Edit className="w-5 h-5" />
-          </button>
+          </button> */}
 
-          <button
+          {/* <button
             className="text-gray-500 hover:text-red-500"
             title="Delete"
             onClick={() => handleDelete(row.original)}
           >
             <Trash className="w-5 h-5" />
-          </button>
+          </button> */}
         </div>
       ),
     },
@@ -120,12 +120,12 @@ const ManageOrders = ({
       </div>
       <NMTable columns={columns} data={listings || []} />
       <TablePagination totalPage={meta?.totalPage} />
-      <DeleteConfirmationModal
+      {/* <DeleteConfirmationModal
         name={selectedItem}
         isOpen={isModalOpen}
         onOpenChange={setModalOpen}
         onConfirm={handleDeleteConfirm}
-      />
+      /> */}
     </div>
   );
 };

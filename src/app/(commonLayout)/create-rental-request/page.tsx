@@ -6,8 +6,10 @@ const CreateRentalRequestPage = async () => {
   const { data } = await getAllListingsForTenant();
 
   return (
-    <div className="flex items-center justify-center mt-10">
-      <CreateRentalRequestForm listings={data} />
+    <div className="bg-[#F6F1DE] h-screen flex items-center justify-center">
+      <div className="">
+        <CreateRentalRequestForm listings={data} />
+      </div>
     </div>
   );
 };

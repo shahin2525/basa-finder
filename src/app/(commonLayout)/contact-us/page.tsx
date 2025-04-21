@@ -1,9 +1,10 @@
+import ContactInfo from "@/components/modules/contact/ContactInfo";
 import React from "react";
 
 const ContactUsPage = () => {
   return (
-    <div>
-      <h1>contact us</h1>
+    <div className="bg-[#F6F1DE]">
+      <ContactInfo />
     </div>
   );
 };

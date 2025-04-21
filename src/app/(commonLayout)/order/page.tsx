@@ -13,7 +13,7 @@ const OrdersPage = async ({
   const { data, meta } = await getTenantOrders(page, "3");
   // const { data:TList } = getTenantOrders();
   return (
-    <div>
+    <div className="bg-[#F6F1DE]">
       <ManageOrders listings={data} meta={meta} />
     </div>
   );

@@ -52,20 +52,19 @@ const RentalListingDetails = ({ listing }: { listing: TListing }) => {
       </div>
       <div className="bg-white rounded-md p-4 ">
         <h2 className="font-bold text-xl mb-4">
-          Location :{listing?.location}
+          Location : {listing?.location}
         </h2>
         <p className="font-bold text-justify text-gray-500  text-sm">
           Description : {listing?.description}
         </p>
         <div className="flex items-center justify-between my-5 text-gray-500 text-sm font-bold">
           <p className=" py-1">
-            Number of Bedrooms: {listing?.numberOfBedrooms}
+            Number of Bedrooms : {listing?.numberOfBedrooms}
           </p>
         </div>
         <hr />
         <p className="my-2 font-bold">
-          Price:
-          <span className="font-semibold">$ {listing?.rentAmount}</span>
+          Price :<span className="font-semibold"> ${listing?.rentAmount}</span>
         </p>
         <hr />
         <Button onClick={handleGoToRequestPage} className="my-4">

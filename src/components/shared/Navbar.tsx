@@ -100,13 +100,13 @@ export default function Navbar() {
 
   return (
     <header
-      className={`w-full transition-all sticky top-0 z-50 ${
+      className={`max-w-screen-xl transition-all sticky top-0 z-50  ${
         isScrolled
           ? "bg-background/80 backdrop-blur-sm shadow-sm"
           : "bg-background"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+      <div className="container mx-auto flex items-center justify-between py-3">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/">

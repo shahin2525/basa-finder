@@ -73,7 +73,7 @@ const CreateRentalRequestForm = ({
   };
 
   return (
-    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 ">
+    <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-2xl p-5 bg-white">
       <div className="flex items-center space-x-4 mb-5 ">
         <Image
           src={Logo2}
@@ -96,14 +96,14 @@ const CreateRentalRequestForm = ({
               name="listingID"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Select Listing house Location</FormLabel>
+                  <FormLabel>Select Rental Listing </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Listing" />
+                        <SelectValue placeholder="Select Rental Listing" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
