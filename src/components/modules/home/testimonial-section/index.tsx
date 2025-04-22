@@ -5,6 +5,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import logo1 from "@/assets/svgs/tlogo1.jpg";
+import logo2 from "@/assets/svgs/tlogo2.jpg";
+import logo3 from "@/assets/svgs/tlogo3.jpg";
+import logo4 from "@/assets/svgs/tlogo4.jpg";
 
 export default function TestimonialSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -13,7 +17,7 @@ export default function TestimonialSection() {
     {
       name: "Sarah Johnson",
       role: "Software Engineer",
-      avatar: "/avatars/sarah.jpg",
+      avatar: logo1,
       quote:
         "Fasa-Finder helped me find my dream apartment in just 3 days! The search filters are incredibly accurate.",
       rating: 5,
@@ -21,7 +25,7 @@ export default function TestimonialSection() {
     {
       name: "Michael Chen",
       role: "Medical Student",
-      avatar: "/avatars/michael.jpg",
+      avatar: logo2,
       quote:
         "As an international student, I was nervous about finding housing. Fasa-Finder made the process so easy!",
       rating: 4,
@@ -29,7 +33,7 @@ export default function TestimonialSection() {
     {
       name: "Amina Diallo",
       role: "Graphic Designer",
-      avatar: "/avatars/amina.jpg",
+      avatar: logo3,
       quote:
         "Found a pet-friendly rental with all my requirements. Landlord was verified and responsive. 10/10!",
       rating: 5,
@@ -37,7 +41,7 @@ export default function TestimonialSection() {
     {
       name: "David Wilson",
       role: "Teacher",
-      avatar: "/avatars/david.jpg",
+      avatar: logo4,
       quote:
         "Saved me hours of searching. The price alerts notified me when perfect listings became available.",
       rating: 5,
@@ -75,7 +79,7 @@ export default function TestimonialSection() {
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
                 <Avatar>
                   <AvatarImage
-                    src={testimonials[currentIndex].avatar}
+                    src={testimonials[currentIndex].avatar.src}
                     alt={testimonials[currentIndex].name}
                   />
                   <AvatarFallback>
@@ -139,7 +143,7 @@ export default function TestimonialSection() {
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <Avatar>
                     <AvatarImage
-                      src={testimonial.avatar}
+                      src={testimonial.avatar.src}
                       alt={testimonial.name}
                     />
                     <AvatarFallback>

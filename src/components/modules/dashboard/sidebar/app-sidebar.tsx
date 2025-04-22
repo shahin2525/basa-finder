@@ -124,11 +124,11 @@ const baseNavItems: BaseNavItems = {
       items: [
         // { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
-          title: "Manage-Listing",
+          title: "Manage-Rental-House",
           url: "/dashboard/landlord/all-listing",
         },
         {
-          title: "Manage-Rental-Listings",
+          title: "Manage-Rental-Request",
           url: "/dashboard/landlord/view-rental-listings",
         },
       ],

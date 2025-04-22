@@ -162,7 +162,7 @@ export default function HeroSection() {
                 <Button
                   onClick={handleSearch}
                   size="lg"
-                  className="w-full bg-primary hover:bg-primary/90"
+                  className="w-full bg-primary hover:bg-primary/90 cursor-pointer"
                 >
                   Search
                 </Button>

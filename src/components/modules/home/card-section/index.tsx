@@ -20,7 +20,7 @@ export function RentalCardSection({ properties }: RentalCardSectionProps) {
         {/* Section Title */}
         <div className="mb-10 text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Rental House Cards
+            Find homes
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg ">
             Discover your perfect rental home

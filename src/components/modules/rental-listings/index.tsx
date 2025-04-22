@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Edit, Eye } from "lucide-react";
+// import { Edit } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 
@@ -19,19 +19,19 @@ const ManageRentalListings = ({
 }) => {
   const router = useRouter();
 
-  const handleView = (request: TRequest) => {
-    console.log("Viewing product:", request);
-  };
+  // const handleView = (request: TRequest) => {
+  //   console.log("Viewing product:", request);
+  // };
 
   const columns: ColumnDef<TRequest>[] = [
     {
       accessorKey: "status",
-      header: "Status",
+      header: "Request Status",
       cell: ({ row }) => <span>{row.original.status}</span>,
     },
     {
       accessorKey: "createdAt",
-      header: "Created Time",
+      header: "Request Created Time",
       cell: ({ row }) => (
         <span>{new Date(row.original.createdAt).toLocaleString()}</span>
       ),
@@ -46,13 +46,13 @@ const ManageRentalListings = ({
       header: "Action",
       cell: ({ row }) => (
         <div className="flex items-center space-x-3">
-          <button
+          {/* <button
             className="text-gray-500 hover:text-blue-500"
             title="View"
             onClick={() => handleView(row.original)}
           >
             <Eye className="w-5 h-5" />
-          </button>
+          </button> */}
           <button
             className="text-gray-500 hover:text-green-500"
             title="Edit"
@@ -62,7 +62,9 @@ const ManageRentalListings = ({
               )
             }
           >
-            <Edit className="w-5 h-5" />
+            <div>
+              <span>Update Rental Request</span>
+            </div>
           </button>
         </div>
       ),
