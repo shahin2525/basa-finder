@@ -91,10 +91,9 @@ const UpdateListingForm = ({ listing }: { listing: TListing }) => {
           className="object-contain" // 👈 Ensures proper scaling
         />
         <div>
-          <h1 className="text-xl font-semibold">Update Listing</h1>
-          <p className="font-extralight text-sm text-gray-600">
-            Join us today and start your journey!
-          </p>
+          <h1 className="text-xl font-semibold">
+            Update your Rental Listing House
+          </h1>
         </div>
       </div>
       <Form {...form}>

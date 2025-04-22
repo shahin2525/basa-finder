@@ -13,8 +13,10 @@ const OrdersPage = async ({
   const { data, meta } = await getTenantOrders(page, "3");
   // const { data:TList } = getTenantOrders();
   return (
-    <div className="bg-[#F6F1DE]">
-      <ManageOrders listings={data} meta={meta} />
+    <div className="bg-[#F6F1DE] flex justify-center items-center h-screen ">
+      <div className="border-2 border-gray-300 rounded-xl flex-grow p-5 bg-white sm:max-w-[500px] md:max-w-3xl">
+        <ManageOrders listings={data} meta={meta} />
+      </div>
     </div>
   );
 };

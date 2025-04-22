@@ -15,7 +15,7 @@ export const getAllListingsForTenant = async (searchParams?: {
     const res = await fetch(
       `${
         process.env.BASA_FINDER_PUBLIC_BASE_API
-      }/landlords/listings?${query.toString()}`,
+      }/landlords/all/listings?${query.toString()}`,
       {
         next: {
           tags: ["Listing"],

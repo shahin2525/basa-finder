@@ -190,7 +190,7 @@ const VerifyOrder = () => {
                 </>
               )}
             </div>
-            <Link href="/order-view">
+            <Link href="/orders-view">
               <Button className="w-full">View Orders</Button>
             </Link>
           </CardContent>

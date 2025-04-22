@@ -52,21 +52,21 @@ const ManageOrders = ({
   // };
 
   const columns: ColumnDef<TOrder>[] = [
-    {
-      accessorKey: "location image",
-      header: "Location Image",
-      // cell: ({ row }) => (
-      // <div className="flex items-center space-x-3">
-      //   <Image
-      //     src={"https://github.com/shadcn.png"}
-      //     alt={row.original.email}
-      //     width={40}
-      //     height={40}
-      //     className="w-8 h-8 rounded-full"
-      //   />
-      // </div>
-      // ),
-    },
+    // {
+    //   accessorKey: "location image",
+    //   header: "Location Image",
+    // cell: ({ row }) => (
+    // <div className="flex items-center space-x-3">
+    //   <Image
+    //     src={"https://github.com/shadcn.png"}
+    //     alt={row.original.email}
+    //     width={40}
+    //     height={40}
+    //     className="w-8 h-8 rounded-full"
+    //   />
+    // </div>
+    // ),
+    // },
     {
       accessorKey: "status",
       header: "Order Status",

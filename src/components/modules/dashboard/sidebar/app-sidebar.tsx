@@ -64,7 +64,7 @@ const baseNavItems: BaseNavItems = {
   admin: [
     {
       title: "Admin Dashboard",
-      url: "/dashboard/admin",
+      url: "#",
     },
     {
       title: "Admin-Activity",
@@ -89,7 +89,7 @@ const baseNavItems: BaseNavItems = {
   tenant: [
     {
       title: "Tenant Dashboard",
-      url: "/dashboard/tenant",
+      url: "#",
     },
     {
       title: "Tenant-Activity",
@@ -115,8 +115,8 @@ const baseNavItems: BaseNavItems = {
   ],
   landlord: [
     {
-      title: "Dashboard",
-      url: "/dashboard/landlord",
+      title: "Landlord Dashboard",
+      url: "#",
     },
     {
       title: "Listings", // Changed from "Shop"

@@ -77,7 +77,7 @@ const AllRentalListings = async ({ searchParams }: AllRentalListingsProps) => {
 
   return (
     <div className="bg-[#FDFBEE] py-10 px-3">
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-center py-4">
+      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-center py-4 mb-4">
         {search ? `Rentals in ${search}` : "All Rental Listings"}
       </h1>
 

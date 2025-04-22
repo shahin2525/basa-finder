@@ -20,13 +20,13 @@ const ManageRequests = ({
   const columns: ColumnDef<TRequest>[] = [
     {
       accessorKey: "status",
-      header: "Status",
+      header: "Request Status",
       cell: ({ row }) => <span>{row.original?.status}</span>,
     },
 
     {
       accessorKey: "createdAt",
-      header: "Created Time",
+      header: "Request Created Time",
       cell: ({ row }) => (
         <span>{new Date(row.original.createdAt).toLocaleString()}</span>
       ),
@@ -63,7 +63,7 @@ const ManageRequests = ({
         //   </button>
         // </div>
         <div className="flex items-center space-x-3">
-          {row.original?.status?.toLowerCase() === "approve" && (
+          {row.original?.status?.toLowerCase() === "approve" ? (
             <button
               className="text-gray-500 hover:text-green-500"
               title="payment"
@@ -71,8 +71,14 @@ const ManageRequests = ({
                 router.push(`/dashboard/tenant/requests/${row.original?._id}`)
               }
             >
-              <Banknote className="w-5 h-5" />
+              <div className="flex items-center justify-center">
+                {" "}
+                <span>Go To Payment</span>{" "}
+                <Banknote className="w-5 h-5 ml-0.5" />
+              </div>
             </button>
+          ) : (
+            <div>{`Your request is ${row?.original?.status}`}</div>
           )}
         </div>
       ),
