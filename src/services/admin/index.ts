@@ -172,7 +172,47 @@ export const updateUserRole = async (
         body: JSON.stringify(userData),
       }
     );
-    revalidateTag("Listing");
+    revalidateTag("User");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+export const userActivate = async (userId: string): Promise<any> => {
+  try {
+    const res = await fetch(
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/admin/users/${userId}/unblock`,
+      {
+        method: "PATCH",
+
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    revalidateTag("User");
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};
+
+//
+export const userDeactivate = async (userId: string): Promise<any> => {
+  try {
+    const res = await fetch(
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/admin/users/${userId}/block`,
+      {
+        method: "PATCH",
+
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    revalidateTag("User");
     return res.json();
   } catch (error: any) {
     return Error(error);

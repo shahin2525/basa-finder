@@ -13,7 +13,7 @@ import { toast } from "sonner";
 
 import DeleteConfirmationModal from "@/components/ui/core/BFModal/DeleteConfirmationModal";
 import { TUser } from "@/types/user";
-import { deleteUser } from "@/services/admin";
+import { deleteUser, userActivate, userDeactivate } from "@/services/admin";
 
 const ManageUsers = ({ users, meta }: { users: TUser[]; meta: IMeta }) => {
   const router = useRouter();
@@ -26,6 +26,30 @@ const ManageUsers = ({ users, meta }: { users: TUser[]; meta: IMeta }) => {
     setSelectedId(data?._id);
     setSelectedItem(data?.name);
     setModalOpen(true);
+  };
+  const handleDeactivate = async (data: TUser) => {
+    try {
+      const res = await userDeactivate(data?._id);
+      if (res.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleActivate = async (data: TUser) => {
+    try {
+      const res = await userActivate(data?._id);
+      if (res.success) {
+        toast.success(res?.message);
+      } else {
+        toast.error(res?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleDeleteConfirm = async () => {
@@ -81,7 +105,7 @@ const ManageUsers = ({ users, meta }: { users: TUser[]; meta: IMeta }) => {
         <div className="flex items-center space-x-3">
           <button
             className="text-gray-500 hover:text-green-500"
-            title="Edit"
+            title="Update User role"
             onClick={() =>
               router.push(
                 `/dashboard/admin/update-user-role/${row.original._id}`
@@ -91,9 +115,27 @@ const ManageUsers = ({ users, meta }: { users: TUser[]; meta: IMeta }) => {
             <Edit className="w-5 h-5" />
           </button>
 
+          {row?.original?.deactivate ? (
+            <button
+              className="text-gray-500 hover:text-green-500"
+              title="unblock User"
+              onClick={() => handleActivate(row?.original)}
+            >
+              unblock
+            </button>
+          ) : (
+            <button
+              className="text-gray-500 hover:text-green-500"
+              title="block user"
+              onClick={() => handleDeactivate(row?.original)}
+            >
+              block
+            </button>
+          )}
+
           <button
             className="text-gray-500 hover:text-red-500"
-            title="Delete"
+            title="Delete User"
             onClick={() => handleDelete(row.original)}
           >
             <Trash className="w-5 h-5" />

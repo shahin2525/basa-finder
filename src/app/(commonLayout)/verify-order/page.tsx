@@ -1,11 +1,13 @@
 import VerifyOrder from "@/components/modules/payment/VerifyOrder";
-import React from "react";
+import { Suspense } from "react";
 
 const verifyOrderPage = () => {
   return (
-    <div className="bg-[#F6F1DE]">
-      <VerifyOrder />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="bg-[#F6F1DE]">
+        <VerifyOrder />
+      </div>
+    </Suspense>
   );
 };
 

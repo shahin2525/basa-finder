@@ -1,11 +1,11 @@
 import AllRentalListings from "@/components/modules/tenant/AllRentalListing";
-import React from "react";
+import { Suspense } from "react";
 
 const AllRentalListingPage = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <AllRentalListings />
-    </div>
+    </Suspense>
   );
 };
 

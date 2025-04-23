@@ -50,16 +50,8 @@
 ### 🏗 Installation
 
 ```bash
-git clone https://github.com/your-username/basaFinder
-cd basaFinder
-
-# Install and run frontend
-cd frontend
-npm install
-npm run dev
-
-# Install and run backend
-cd ../backend
+git clone https://github.com/shahin2525/basa-finder
+cd basa-finder
 npm install
 npm run dev
 ```
