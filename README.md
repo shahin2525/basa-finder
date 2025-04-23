@@ -1,4 +1,4 @@
-# 🏠 basaFinder - Full-Stack Rental Platform
+# 🏠 basaFinder - Full-Stack Rental House Platform
 
 ## 🛠 Technologies Used
 
@@ -55,3 +55,5 @@ cd basa-finder
 npm install
 npm run dev
 ```
+
+- [live_URL](https://basa-finder-beta.vercel.app/)
