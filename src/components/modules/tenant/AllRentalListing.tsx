@@ -26,6 +26,7 @@ const AllRentalListings = () => {
   const [listings, setListings] = useState<TListing[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { user } = useUser();
+
   // Initialize filters from URL params
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -66,45 +67,39 @@ const AllRentalListings = () => {
 
   const handleSearch = () => {
     if (user?.role !== "tenant") {
-      toast.error("Only tenant can search");
-      return;
-    }
-    if (!searchTerm.trim()) return;
-
-    // Check for bedroom patterns (e.g., "2 beds", "3 bedrooms")
-    const bedroomMatch = searchTerm.match(
-      /(\d+)\s?(bed|beds|bedroom|bedrooms)/i
-    );
-    if (bedroomMatch) {
-      const bedroomCount = bedroomMatch[1];
-      updateFilters("numberOfBedrooms", bedroomCount);
+      toast.error("Only tenants can search listings");
       return;
     }
 
-    // Clean the input by removing non-numeric characters except hyphen and plus
-    const cleanedInput = searchTerm.replace(/[^0-9+-]/g, "");
+    const trimmedTerm = searchTerm.trim();
 
-    // Check if it's a rent amount (number or range)
-    if (cleanedInput.includes("-")) {
-      const [min, max] = cleanedInput.split("-").map(Number);
-      if (!isNaN(min) && (max === undefined || !isNaN(max))) {
-        updateFilters("rentAmount", cleanedInput);
-        return;
-      }
-    } else if (!isNaN(Number(cleanedInput))) {
-      updateFilters("rentAmount", cleanedInput);
+    // Clear previous search filter if input is empty
+    if (!trimmedTerm) {
+      updateFilters("search", "");
       return;
     }
 
-    // Default to location search
-    updateFilters("search", searchTerm.trim());
+    // Treat the input as location search
+    updateFilters("search", trimmedTerm);
+  };
+
+  const handlePriceFilter = (value: string) => {
+    if (user?.role !== "tenant") {
+      toast.error("Only tenants can filter by price");
+      return;
+    }
+    updateFilters("rentAmount", value);
+  };
+
+  const handleBedroomFilter = (value: string) => {
+    if (user?.role !== "tenant") {
+      toast.error("Only tenants can filter by bedrooms");
+      return;
+    }
+    updateFilters("numberOfBedrooms", value);
   };
 
   const updateFilters = (key: string, value: string) => {
-    if (user?.role !== "tenant") {
-      toast.error("Only tenant can filter");
-      return;
-    }
     const newFilters = { ...filters };
 
     if (value) {
@@ -124,6 +119,10 @@ const AllRentalListings = () => {
   };
 
   const clearFilters = () => {
+    if (user?.role !== "tenant") {
+      toast.error("Only tenants can clear filters");
+      return;
+    }
     setSearchTerm("");
     setFilters({});
     router.push("/all-rental-listings", { scroll: false });
@@ -172,54 +171,61 @@ const AllRentalListings = () => {
           <div className="w-full lg:w-auto flex-1 max-w-md">
             <div className="flex gap-2">
               <Input
-                placeholder="Search by location, price (e.g., 1500 or 1000-2000), or bedrooms (e.g., 2 beds)"
+                placeholder="Search by location (e.g., 'Oval', 'osaka')"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 className="flex-1"
+                // disabled={user?.role !== "tenant"}
               />
-              <Button onClick={handleSearch}>Search</Button>
+              <Button
+                onClick={handleSearch}
+                // disabled={user?.role !== "tenant"}
+              >
+                Search
+              </Button>
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full lg:w-auto">
             <Select
-              onValueChange={(value) => updateFilters("rentAmount", value)}
-              value={filters.rentAmount || undefined}
+              onValueChange={handlePriceFilter}
+              value={filters.rentAmount || ""}
+              disabled={user?.role !== "tenant"}
             >
               <SelectTrigger className="w-full min-w-[180px]">
                 <SelectValue placeholder="Price Range" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="0-1000">$0 - $1000</SelectItem>
-                <SelectItem value="1000-2000">$1000 - $2000</SelectItem>
-                <SelectItem value="2000-3000">$2000 - $3000</SelectItem>
-                <SelectItem value="3000-">$3000+</SelectItem>
+                <SelectItem value="0-2000">$0 - $2000</SelectItem>
+                <SelectItem value="3000-5000">$3000 - $5000</SelectItem>
+                <SelectItem value="6000-8000">$6000 - $8000</SelectItem>
+                <SelectItem value="9000-40000">$9000-40000</SelectItem>
               </SelectContent>
             </Select>
 
             <Select
-              onValueChange={(value) =>
-                updateFilters("numberOfBedrooms", value)
-              }
-              value={filters.numberOfBedrooms || undefined}
+              onValueChange={handleBedroomFilter}
+              value={filters.numberOfBedrooms || ""}
+              disabled={user?.role !== "tenant"}
             >
               <SelectTrigger className="w-full min-w-[180px]">
                 <SelectValue placeholder="Bedrooms" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1-5">1-5 Bedroom</SelectItem>
+                <SelectItem value="1-5">1-5 Bedrooms</SelectItem>
                 <SelectItem value="6-10">6-10 Bedrooms</SelectItem>
                 <SelectItem value="11-15">11-15 Bedrooms</SelectItem>
-                <SelectItem value="16-30">16 plus Bedrooms</SelectItem>
+                <SelectItem value="16-20">16-20 Bedrooms</SelectItem>
               </SelectContent>
             </Select>
 
             <Button
-              variant="outline"
               onClick={clearFilters}
-              className="min-w-[180px]"
-              disabled={Object.keys(filters).length === 0}
+              className="min-w-[180px] bg-amber-500"
+              disabled={
+                Object.keys(filters).length === 0 || user?.role !== "tenant"
+              }
             >
               Clear Filters
             </Button>
@@ -238,6 +244,7 @@ const AllRentalListings = () => {
                 <button
                   onClick={() => updateFilters(key, "")}
                   className="text-gray-500 hover:text-gray-700"
+                  disabled={user?.role !== "tenant"}
                 >
                   ×
                 </button>
@@ -267,6 +274,7 @@ const AllRentalListings = () => {
                   variant="outline"
                   className="mt-4"
                   onClick={clearFilters}
+                  disabled={user?.role !== "tenant"}
                 >
                   Clear all filters
                 </Button>
