@@ -1,7 +1,9 @@
+import TenantDashboardDefault from "@/components/modules/tenant/TenantDashboardDefault";
+
 const AdminPage = () => {
   return (
-    <div>
-      <h1>Admin page</h1>
+    <div className="p-4 md:p-8">
+      <TenantDashboardDefault />
     </div>
   );
 };

@@ -7,7 +7,7 @@ const HomePage = async () => {
   const { data } = await getAllListingsForTenant();
 
   return (
-    <div className="mt-4">
+    <div className="">
       <HeroSection />
       <RentalCardSection properties={data} />
       <TestimonialSection />

@@ -72,7 +72,7 @@ export default function HeroSection() {
   //   router.push(`/all-rental-listings?${query.toString()}`);
   // };
   return (
-    <section className="relative h-[750px] md:h-[600px] lg:h-[600px] w-full">
+    <section className="relative h-[550px] md:h-[450px] lg:h-[450px] w-full">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 h-full w-full">
         <Image
@@ -105,14 +105,14 @@ export default function HeroSection() {
               Add Rental House
             </Button>
             {/* Search Form */}
-            <div className="mt-8 rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+            {/* <div className="mt-8 rounded-lg bg-white/10 p-6 backdrop-blur-sm">
               <h2 className="mb-4 text-xl font-semibold">
                 Hired And Post Your Rentals House
               </h2>
               <p className="mb-4 text-xl font-semibold">
                 Agents. Tours. Loans. Homes.
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

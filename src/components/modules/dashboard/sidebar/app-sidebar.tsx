@@ -64,11 +64,7 @@ const baseNavItems: BaseNavItems = {
   admin: [
     {
       title: "Admin Dashboard",
-      url: "#",
-    },
-    {
-      title: "Admin-Activity",
-      url: "/admin/shop/products",
+      url: "/dashboard/admin",
       items: [
         { title: "Manage-Users", url: "/dashboard/admin/manage-users" },
         {
@@ -89,20 +85,8 @@ const baseNavItems: BaseNavItems = {
   tenant: [
     {
       title: "Tenant Dashboard",
-      url: "#",
-    },
-    {
-      title: "Tenant-Activity",
-      url: "/tenant/shop/products",
-      items: [
-        // {
-        //   title: "Add-Rental-Request",
-        //   url: "/dashboard/tenant/create-rental-request",
-        // },
-        { title: "Mange-Request", url: "/dashboard/tenant/requests" },
-
-        // { title: "My Coupons", url: "/tenant/shop/manage-coupon" },
-      ],
+      url: "/dashboard/tenant",
+      items: [{ title: "Mange-Request", url: "/dashboard/tenant/requests" }],
     },
     {
       title: "Settings",
@@ -116,11 +100,7 @@ const baseNavItems: BaseNavItems = {
   landlord: [
     {
       title: "Landlord Dashboard",
-      url: "#",
-    },
-    {
-      title: "Listings", // Changed from "Shop"
-      url: "#",
+      url: "/dashboard/landlord",
       items: [
         // { title: "Add-Listings", url: "/dashboard/landlord/create-listing" },
         {
