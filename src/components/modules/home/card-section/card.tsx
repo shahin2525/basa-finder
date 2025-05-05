@@ -66,7 +66,7 @@ import Link from "next/link";
 
 export function RentalCard({ property }: { property: TListing }) {
   return (
-    <Card className="flex flex-col overflow-hidden transition-all hover:shadow-lg">
+    <Card className="flex flex-col overflow-hidden transition-all hover:shadow-lg py-0">
       {/* Property Image */}
       <CardHeader className="relative h-48 w-full">
         <Image
@@ -107,7 +107,7 @@ export function RentalCard({ property }: { property: TListing }) {
         </div>
       </CardContent>
 
-      <CardFooter className="px-2">
+      <CardFooter className="mb-2">
         <Button className="w-full" asChild>
           <Link href={`/listing/${property._id}`}>View Details</Link>
         </Button>

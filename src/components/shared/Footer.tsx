@@ -1,13 +1,13 @@
 import Link from "next/link";
 
-import { Twitter, Instagram, Linkedin, FacebookIcon } from "lucide-react";
+import { Home, Contact, Hand, ReceiptCent } from "lucide-react";
 import { Button } from "../ui/button";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-amber-200 border-t">
+    <footer className="bg-[#F5F5F5] border-t">
       <div className="max-w-screen-xl mx-auto px-5 w-full">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12">
@@ -35,27 +35,27 @@ export default function Footer() {
             {/* Social Media Links */}
             <div className="flex space-x-4 pt-2">
               <Button variant="ghost" size="icon" asChild>
-                <Link href="#">
-                  <FacebookIcon className="h-4 w-4" />
-                  <span className="sr-only">Facebook</span>
+                <Link href="/">
+                  <Home className="h-4 w-4" />
+                  <span className="sr-only">Home</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="#">
-                  <Twitter className="h-4 w-4" />
-                  <span className="sr-only">Twitter</span>
+                <Link href="/contact-us">
+                  <Contact className="h-4 w-4" />
+                  <span className="sr-only">Contact Us</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="#">
-                  <Instagram className="h-4 w-4" />
-                  <span className="sr-only">Instagram</span>
+                <Link href="/about-us">
+                  <Hand className="h-4 w-4" />
+                  <span className="sr-only">About Us</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
-                <Link href="#">
-                  <Linkedin className="h-4 w-4" />
-                  <span className="sr-only">LinkedIn</span>
+                <Link href="/all-rental-listings">
+                  <ReceiptCent className="h-4 w-4" />
+                  <span className="sr-only">All Rental Listing</span>
                 </Link>
               </Button>
             </div>
@@ -67,31 +67,31 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/terms"
+                  href="/"
                   className="text-muted-foreground hover:underline hover:text-foreground"
                 >
-                  Terms of Use
+                  Home
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/privacy"
+                  href="/rent-calculator"
                   className="text-muted-foreground hover:underline hover:text-foreground"
                 >
-                  Privacy Policy
+                  Rent Calculation Policy
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/faq"
+                  href="/all-rental-listings"
                   className="text-muted-foreground hover:underline hover:text-foreground"
                 >
-                  FAQ
+                  All Rental Listing
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/about"
+                  href="/about-us"
                   className="text-muted-foreground hover:underline hover:text-foreground"
                 >
                   About Us
@@ -101,7 +101,7 @@ export default function Footer() {
           </div>
 
           {/* Newsletter or Additional Content */}
-          <div className="space-y-4">
+          {/* <div className="space-y-4">
             <h3 className="text-lg font-semibold">Stay Updated</h3>
             <p className="text-muted-foreground text-sm">
               Subscribe to our newsletter for the latest updates.
@@ -116,12 +116,12 @@ export default function Footer() {
                 Subscribe
               </Button>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Copyright Section */}
         <div className="border-t py-6 text-center text-sm text-muted-foreground">
-          <p>© {currentYear} Your Company Name. All rights reserved.</p>
+          <p>© {currentYear} Basa Finder. All rights reserved.</p>
         </div>
       </div>
     </footer>

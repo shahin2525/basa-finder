@@ -15,7 +15,7 @@ export function RentalCardSection({ properties }: RentalCardSectionProps) {
   const displayedProperties = properties.slice(0, 6);
 
   return (
-    <section className="bg-[#FBF8EF] py-12 md:py-16 lg:py-16 flex justify-center items-center">
+    <section className="bg-[#FBF8EF] py-10 md:py-12 lg:py-12 flex justify-center items-center">
       <div className="container px-4 sm:px-6 lg:px-8">
         {/* Section Title */}
         <div className="mb-10 text-center">

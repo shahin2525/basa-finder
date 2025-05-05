@@ -101,7 +101,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`max-w-screen-xl transition-all sticky top-0 z-50 h-[90px] ${
+      className={`max-w-screen-xl transition-all sticky top-0 z-50 h-[90px] w-full ml-[1px] ${
         isScrolled
           ? "bg-background/80 backdrop-blur-sm shadow-sm"
           : "bg-background"
