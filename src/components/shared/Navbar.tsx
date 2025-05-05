@@ -69,6 +69,7 @@ export default function Navbar() {
     { name: "All Rental Listings", href: "/all-rental-listings" },
     { name: "About Us", href: "/about-us" },
     { name: "Contact Us", href: "/contact-us" },
+    { name: "Rent Calculator", href: "/rent-calculator" },
   ];
 
   // Links for authenticated users
