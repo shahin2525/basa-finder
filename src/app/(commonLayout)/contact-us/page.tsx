@@ -3,7 +3,7 @@ import React from "react";
 
 const ContactUsPage = () => {
   return (
-    <div className="bg-[#F6F1DE]">
+    <div className="bg-[#FBF8EF]">
       <ContactInfo />
     </div>
   );

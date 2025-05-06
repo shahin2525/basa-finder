@@ -20,6 +20,8 @@ import { loginUser } from "@/services/authServices";
 import { loginSchema } from "./loginValidation";
 import Image from "next/image";
 import { useUser } from "@/context/UserContext";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 // Define proper form values type
 type FormValues = {
@@ -27,11 +29,27 @@ type FormValues = {
   password: string;
 };
 
+// Define test credentials for different roles
+const TEST_CREDENTIALS = {
+  admin: {
+    email: "jhankar@j.com",
+    password: "user12345",
+  },
+  landlord: {
+    email: "mejan@m.com",
+    password: "user12345",
+  },
+  tenant: {
+    email: "imunsadik@i.com",
+    password: "user12345",
+  },
+};
+
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<FormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      // Add default values to prevent uncontrolled inputs
       email: "",
       password: "",
     },
@@ -63,6 +81,13 @@ export default function LoginForm() {
     }
   };
 
+  // Function to fill form with test credentials
+  const fillTestCredentials = (role: keyof typeof TEST_CREDENTIALS) => {
+    form.setValue("email", TEST_CREDENTIALS[role].email);
+    form.setValue("password", TEST_CREDENTIALS[role].password);
+    toast.info(`Filled ${role} credentials`);
+  };
+
   return (
     <div className="border-2 border-gray-300 rounded-xl flex-grow max-w-md w-full p-5">
       <div className="flex items-center space-x-4">
@@ -75,7 +100,43 @@ export default function LoginForm() {
         />
         <div>
           <h1 className="text-xl font-semibold">Login</h1>
-          <p className="font-extralight text-sm text-gray-600">Welcome back!</p>
+          <p className="font-extralight text-lg text-gray-600">Welcome back!</p>
+        </div>
+      </div>
+
+      {/* Quick Login Buttons */}
+      <div className="flex flex-col space-y-2 mt-4 mb-6">
+        <p className="text-lg text-gray-500 text-center">
+          Recruiter? Try quick login:
+        </p>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            onClick={() => fillTestCredentials("admin")}
+            className="flex-1"
+          >
+            Admin Login
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            onClick={() => fillTestCredentials("landlord")}
+            className="flex-1"
+          >
+            Landlord Login
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            type="button"
+            onClick={() => fillTestCredentials("tenant")}
+            className="flex-1"
+          >
+            Tenant Login
+          </Button>
         </div>
       </div>
 
@@ -88,7 +149,6 @@ export default function LoginForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  {/* Remove manual value prop - react-hook-form handles it */}
                   <Input type="email" {...field} />
                 </FormControl>
                 <FormMessage />
@@ -102,15 +162,30 @@ export default function LoginForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-                <FormControl>
-                  {/* Remove manual value prop - react-hook-form handles it */}
-                  <Input type="password" {...field} />
-                </FormControl>
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      {...field}
+                      className="pr-10" // Add padding for the eye icon
+                    />
+                  </FormControl>
+                  <button
+                    type="button"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <Button type="submit" className="w-full mt-4" disabled={isSubmitting}>
             {isSubmitting ? "Logging in..." : "Login"}
           </Button>
@@ -118,7 +193,7 @@ export default function LoginForm() {
       </Form>
 
       <p className="text-sm text-gray-600 text-center mt-4">
-        do not have an account?{" "}
+        Do not have an account?{" "}
         <Link href="/register" className="text-primary hover:underline">
           Register
         </Link>

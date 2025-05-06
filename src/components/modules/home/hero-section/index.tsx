@@ -99,8 +99,8 @@ export default function HeroSection() {
             {/* CTA Button */}{" "}
             <Button
               onClick={handleCreateListing}
-              size="lg"
-              className="bg-primary hover:bg-primary/90 cursor-pointer"
+              // size="lg"
+              className="bg-primary hover:bg-primary/90 cursor-pointer w-60 h-10 text-2xl"
             >
               Add Rental House
             </Button>
