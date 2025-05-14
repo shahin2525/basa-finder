@@ -218,3 +218,24 @@ export const userDeactivate = async (userId: string): Promise<any> => {
     return Error(error);
   }
 };
+
+// orders
+export const getAllOrders = async (page?: string, limit?: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.BASA_FINDER_PUBLIC_BASE_API}/orders?limit=${limit}&page=${page}`,
+      {
+        headers: {
+          Authorization: (await cookies()).get("accessToken")!.value,
+        },
+        next: {
+          tags: ["Order"],
+        },
+      }
+    );
+
+    return res.json();
+  } catch (error: any) {
+    return Error(error);
+  }
+};

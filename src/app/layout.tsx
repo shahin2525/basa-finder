@@ -38,7 +38,7 @@ export default function RootLayout({
             </div>
           </div> */}
 
-          <div className="max-w-screen-xl mx-auto px-5 min-h-screen">
+          <div className="mx-auto min-h-screen">
             {children}
             {/* <Footer /> */}
           </div>

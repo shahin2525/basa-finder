@@ -101,15 +101,15 @@ export default function Navbar() {
 
   return (
     <header
-      className={`max-w-screen-xl transition-all sticky top-0 z-50 h-[90px] w-full ml-[1px] ${
+      className={` transition-all sticky top-0 z-50 h-[90px] w-full ml-[1px] ${
         isScrolled
           ? "bg-background/80 backdrop-blur-sm shadow-sm"
           : "bg-background"
       }`}
     >
-      <div className="container mx-auto flex items-center justify-between py-3">
+      <div className="mx-auto flex items-center justify-between py-3">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 ml-6">
           <Link href="/">
             <Image
               src={Logo}
@@ -139,7 +139,7 @@ export default function Navbar() {
         </nav>
 
         {/* Desktop Navigation - Right */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center space-x-4 mr-6">
           {authLinks.map((link) => (
             <Link
               key={link.href}
