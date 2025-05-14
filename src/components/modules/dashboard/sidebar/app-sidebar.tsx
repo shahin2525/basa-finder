@@ -71,13 +71,17 @@ const baseNavItems: BaseNavItems = {
           title: "Manage-Listings",
           url: "/dashboard/admin/manage-rental-listings",
         },
+        {
+          title: "profile",
+          url: "/profile",
+        },
       ],
     },
     {
       title: "Settings",
       url: "#",
       items: [
-        { title: "Update-Profile", url: "/dashboard/admin/profile" },
+        { title: "Update-Profile", url: "/dashboard/admin/profileUpdate" },
         { title: "Change-Password", url: "/dashboard/admin/change-password" },
       ],
     },
@@ -86,7 +90,10 @@ const baseNavItems: BaseNavItems = {
     {
       title: "Tenant Dashboard",
       url: "/dashboard/tenant",
-      items: [{ title: "Mange-Request", url: "/dashboard/tenant/requests" }],
+      items: [
+        { title: "Mange-Request", url: "/dashboard/tenant/requests" },
+        { title: "Profile", url: "/profile" },
+      ],
     },
     {
       title: "Settings",
@@ -110,6 +117,10 @@ const baseNavItems: BaseNavItems = {
         {
           title: "Manage-Rental-Request",
           url: "/dashboard/landlord/view-rental-listings",
+        },
+        {
+          title: "Profile",
+          url: "/profile",
         },
       ],
     },

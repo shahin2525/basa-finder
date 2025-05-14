@@ -17,6 +17,7 @@ export interface TUser {
   phone: string;
   address: string;
   image?: string;
+  bio?: string;
   city: string;
   role: UserRole;
   deactivate: boolean;
